@@ -48,16 +48,16 @@ package com.codepunk.codepunklib.util.plugin
  * }
  *
  * class DayPluginManager: PluginManager<DayPlugin, Calendar>() {
- *     override fun isPluginStale(state: Calendar?): Boolean {
- *         return isMonday(activeState) != isMonday(state)
+ *     override fun isPluginStale(state: Calendar): Boolean {
+ *         return activeState == null || isMonday(activeState!!) != isMonday(state)
  *     }
  *
- * override fun newPlugin(state: Calendar?): DayPlugin {
+ * override fun newPlugin(state: Calendar): DayPlugin {
  *         return if (isMonday(state)) MondayPlugin() else BaseDayPlugin()
  *     }
  *
- * private fun isMonday(calendar: Calendar?): Boolean {
- *         return calendar?.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY
+ * private fun isMonday(calendar: Calendar): Boolean {
+ *         return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY
  *     }
  * }
  *
@@ -94,8 +94,7 @@ package com.codepunk.codepunklib.util.plugin
  *                application lifecycle.
  */
 @Suppress("UNUSED")
-abstract class PluginManager<Plugin, State>(
-        _activePlugin: Plugin? = null,
+abstract class PluginManager<Plugin: Any, State>(
         _pluginListener: PluginListener<Plugin, State>? = null) {
 
     //region Nested classes
@@ -117,17 +116,17 @@ abstract class PluginManager<Plugin, State>(
     //region Fields
 
     /**
+     * The currently-active plugin.
+     */
+    @Suppress("MemberVisibilityCanBePrivate")
+    lateinit var activePlugin: Plugin
+        private set
+
+    /**
      * The state used to create the currently-active plugin.
      */
     @Suppress("MemberVisibilityCanBePrivate")
     protected var activeState: State? = null
-        private set
-
-    /**
-     * The currently-active plugin (if any).
-     */
-    @Suppress("MemberVisibilityCanBePrivate")
-    var activePlugin: Plugin? = _activePlugin
         private set
 
     /**
@@ -144,19 +143,20 @@ abstract class PluginManager<Plugin, State>(
      * @param state The state used to create a new plugin.
      * @return The currently-active plugin.
      */
-    fun get(state: State?): Plugin {
-        if (activePlugin == null || isPluginStale(state)) {
-            activePlugin?.let {
-                onDeactivatePlugin(it)
-                pluginListener?.onDeactivatePlugin(it)
+    fun get(state: State): Plugin {
+        if (this::activePlugin.isInitialized) {
+            if (isPluginStale(state)) {
+                onDeactivatePlugin(activePlugin)
+                pluginListener?.onDeactivatePlugin(activePlugin)
+            } else {
+                return activePlugin
             }
-            val plugin = newPlugin(state)
-            activePlugin = plugin
-            activeState = state
-            onActivatePlugin(plugin, state)
-            pluginListener?.onActivatePlugin(plugin, state)
         }
-        return activePlugin!!
+        activePlugin = newPlugin(state)
+        activeState = state
+        onActivatePlugin(activePlugin, state)
+        pluginListener?.onActivatePlugin(activePlugin, state)
+        return activePlugin
     }
 
     //endregion Methods
@@ -170,14 +170,14 @@ abstract class PluginManager<Plugin, State>(
      *               new plugin needs to be created.
      * @return Whether the supplied plugin is "stale" based on the given state.
      */
-    protected abstract fun isPluginStale(state: State?): Boolean
+    protected abstract fun isPluginStale(state: State): Boolean
 
     /**
      * Creates a new plugin based on the supplied <code>state</code>.
      * @param state The state to use to create the new plugin.
      * @return The new plugin.
      */
-    protected abstract fun newPlugin(state: State?): Plugin
+    protected abstract fun newPlugin(state: State): Plugin
 
     /**
      * Called when a plugin is activated (i.e. created).
@@ -185,7 +185,7 @@ abstract class PluginManager<Plugin, State>(
      * @param state The state used to create the plugin.
      */
     @Suppress("UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
-    protected fun onActivatePlugin(plugin: Plugin, state: State?) {
+    protected fun onActivatePlugin(plugin: Plugin, state: State) {
         // No action
     }
 
