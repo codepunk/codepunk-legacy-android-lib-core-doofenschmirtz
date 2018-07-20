@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="android_icon_frame" type="id" />
+    <item name="android_switch_widget" type="id" />
+    <item name="android_two_target_divider" type="id" />
+</resources>

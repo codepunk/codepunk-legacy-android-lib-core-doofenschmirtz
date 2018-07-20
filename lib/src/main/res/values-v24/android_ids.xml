@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="android_icon_frame" type="id">@android:id/icon_frame</item>
+    <item name="android_switch_widget" type="id">@android:id/switch_widget</item>
+</resources>
