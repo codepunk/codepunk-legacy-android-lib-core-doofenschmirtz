@@ -19,7 +19,8 @@
  *      https://android.googlesource.com/platform/frameworks/base/+/master/packages/SettingsLib/src/com/android/settingslib/TwoTargetPreference.java
  *
  * Modifications:
- * July 2018: Updated to use local copies of internal Android resources
+ * July 2018: Updated to use support versions of Preference widgets.
+ *            Updated to use local copies of internal Android resources.
  */
 
 package com.codepunk.codepunklib.android.settingslib;
@@ -32,6 +33,7 @@ import android.view.View;
 
 import com.codepunk.codepunklib.R;
 
+@SuppressWarnings("WeakerAccess")
 public class TwoTargetPreference extends Preference {
 
     public TwoTargetPreference(Context context, AttributeSet attrs,

@@ -20,7 +20,7 @@
        https://android.googlesource.com/platform/packages/apps/Settings/+/master/res/layout/preference_widget_master_switch.xml
 
   Modifications:
-  July 2018: Updated to reference SwitchCompat.
+  July 2018: Updated to use support versions of widgets.
              Updated to use local versions of internal Android resources.
   -->
 

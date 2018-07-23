@@ -19,7 +19,7 @@
  *      https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/widget/MasterSwitchPreference.java
  *
  * Modifications:
- * July 2018: Updated to reference SwitchCompat.
+ * July 2018: Updated to use support versions of widgets.
  *            Updated to use local copies of internal Android resources.
  *            Removed setDisabledByAdmin method.
  *            Added onGetDefaultValue/onSetInitialValue.
@@ -38,10 +38,13 @@ import android.view.View.OnClickListener;
 import com.codepunk.codepunklib.R;
 import com.codepunk.codepunklib.android.settingslib.TwoTargetPreference;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A custom preference that provides inline switch toggle. It has a mandatory field for title, and
  * optional fields for icon and sub-text.
  */
+@SuppressWarnings("unused")
 public class MasterSwitchPreference extends TwoTargetPreference {
 
     private SwitchCompat mSwitch;
@@ -100,6 +103,7 @@ public class MasterSwitchPreference extends TwoTargetPreference {
     }
 
     @Override
+    @Nullable
     protected Object onGetDefaultValue(TypedArray a, int index) {
         return a.getBoolean(index, false);
     }
