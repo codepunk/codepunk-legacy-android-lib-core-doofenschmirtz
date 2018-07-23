@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Codepunk, LLC/Scott Slater
+ * Copyright (C) 2018 Codepunk, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,23 @@ import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 
 /**
- * An extension of PreferenceFragmentCompat that checks to see if a given preference itself
- * implements OnPreferenceDisplayDialogCallback and if so, invokes that callback first in order
- * to allow the Preference to display its own dialog.
+ * An extension of [PreferenceFragmentCompat] that checks to see if a given preference
+ * implements [PreferenceFragmentCompat.OnPreferenceDisplayDialogCallback] and if so, invokes that
+ * callback first in order to allow the Preference to display its own dialog.
+ *
+ * @author Scott Slater
  */
 abstract class DialogDelegatePreferenceFragment: PreferenceFragmentCompat() {
+
+    // region Nested classes
 
     companion object {
         val DIALOG_FRAGMENT_TAG = DialogDelegatePreferenceFragment::class.java.name + ".DIALOG"
     }
+
+    // endregion Nested classes
+
+    // region Inherited methods
 
     override fun onDisplayPreferenceDialog(preference: Preference?) {
         if (preference is OnPreferenceDisplayDialogCallback &&
@@ -38,4 +46,6 @@ abstract class DialogDelegatePreferenceFragment: PreferenceFragmentCompat() {
 
         super.onDisplayPreferenceDialog(preference)
     }
+
+    // endregion Inherited methods
 }
