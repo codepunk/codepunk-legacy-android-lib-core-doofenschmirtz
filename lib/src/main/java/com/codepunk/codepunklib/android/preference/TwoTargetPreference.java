@@ -19,51 +19,43 @@
  *
  *      https://github.com/aosp-mirror
  *
- * In the following locations:
+ * In the following location:
  * Project: platform_frameworks_base / file: TwoTargetPreference
- * Project: platform_packages_apps_settings / file: MasterSwitchPreference
  *
  * Modifications:
- * July 2018: Updated to use local copies of internal Android resources.
- *            Updated onClick to suppress click logic from first target.
- *            Updated onBindViewHolder to call click logic from second target.
+ * July 2018: Updated to use local copies of internal Android resources
+ *            Updated onBindViewHolder to capture clicks
  */
 
-package com.codepunk.codepunklib.android.settingslib;
+package com.codepunk.codepunklib.android.preference;
 
 import android.content.Context;
+import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
-import android.support.v7.preference.SwitchPreferenceCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import com.codepunk.codepunklib.R;
 
-/**
- * A version of [SwitchPreferenceCompat] with two click targets. Left target leads to a subsetting
- * fragment or intent. Right target is a switch toggle, controlling on/off for the entire page.
- */
-@SuppressWarnings({ "unused", "WeakerAccess" })
-public class TwoTargetSwitchPreference extends SwitchPreferenceCompat {
+public class TwoTargetPreference extends Preference {
 
-    public TwoTargetSwitchPreference(Context context, AttributeSet attrs,
+    public TwoTargetPreference(Context context, AttributeSet attrs,
             int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
-    public TwoTargetSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TwoTargetPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public TwoTargetSwitchPreference(Context context, AttributeSet attrs) {
+    public TwoTargetPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public TwoTargetSwitchPreference(Context context) {
+    public TwoTargetPreference(Context context) {
         super(context);
         init();
     }
@@ -77,7 +69,7 @@ public class TwoTargetSwitchPreference extends SwitchPreferenceCompat {
     }
 
     @Override
-    public void onBindViewHolder(final PreferenceViewHolder holder) {
+    public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         final View divider = holder.findViewById(R.id.android_two_target_divider);
         final View widgetFrame = holder.findViewById(android.R.id.widget_frame);
@@ -87,19 +79,7 @@ public class TwoTargetSwitchPreference extends SwitchPreferenceCompat {
         }
         if (widgetFrame != null) {
             widgetFrame.setVisibility(shouldHideSecondTarget ? View.GONE : View.VISIBLE);
-            widgetFrame.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Call super's onClick logic from second target
-                    TwoTargetSwitchPreference.super.onClick();
-                }
-            });
         }
-    }
-
-    @Override
-    protected void onClick() {
-        // Suppress on click logic from first target
     }
 
     protected boolean shouldHideSecondTarget() {
@@ -107,6 +87,6 @@ public class TwoTargetSwitchPreference extends SwitchPreferenceCompat {
     }
 
     protected int getSecondTargetResId() {
-        return getWidgetLayoutResource();
+        return 0;
     }
 }

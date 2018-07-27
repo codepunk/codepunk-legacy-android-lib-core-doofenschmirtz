@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- These are the standard attributes that make up a complete theme. -->
+    <declare-styleable name="Theme">
+        <!-- =================== -->
+        <!-- Preference styles   -->
+        <!-- =================== -->
+        <eat-comment />
+
+        <!-- Default style for TwoTargetSwitchPreference. -->
+        <attr name="twoTargetSwitchPreferenceStyle" format="reference" />
+        <!-- Default style for YesNoPreference. -->
+        <attr name="yesNoPreferenceStyle" format="reference" />
+    </declare-styleable>
+</resources>

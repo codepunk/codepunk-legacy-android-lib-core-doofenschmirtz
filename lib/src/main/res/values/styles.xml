@@ -2,12 +2,15 @@
 <resources>
 
     <!-- TODO Make a separate "material" styles.xml? Etc. etc. etc.? -->
-    <style name="SwitchTwoTargetPreference" parent="Preference.SwitchPreferenceCompat">
+    <style name="TwoTargetSwitchPreference" parent="Preference.SwitchPreferenceCompat">
+        <item name="android:layout">@layout/android_preference_two_target</item>
         <item name="android:widgetLayout">@layout/android_preference_widget_master_switch</item>
     </style>
 
-    <style name="SwitchTwoTargetPreference.Material" parent="Preference.SwitchPreferenceCompat.Material">
-        <item name="android:widgetLayout">@layout/android_preference_widget_master_switch</item>
+    <!-- TODO Make a separate "material" styles.xml? Etc. etc. etc.? -->
+    <style name="YesNoPreference" parent="Preference.DialogPreference.Material">
+        <item name="android:positiveButtonText">@android:string/yes</item>
+        <item name="android:negativeButtonText">@android:string/no</item>
     </style>
 
 </resources>
