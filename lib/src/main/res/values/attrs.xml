@@ -9,7 +9,5 @@
 
         <!-- Default style for TwoTargetSwitchPreference. -->
         <attr name="twoTargetSwitchPreferenceStyle" format="reference" />
-        <!-- Default style for YesNoPreference. -->
-        <attr name="yesNoPreferenceStyle" format="reference" />
     </declare-styleable>
 </resources>
