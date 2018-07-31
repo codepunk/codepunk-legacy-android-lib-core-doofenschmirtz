@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Codepunk, LLC
+ * Copyright (C) 2017 Christophe Beyls aka "@BladeCoder"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,13 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ *
+ * The original work can be found at
+ *
+ *      https://medium.com/@BladeCoder/kotlin-singletons-with-argument-194ef06edd9e
  */
 
 package com.codepunk.codepunklib.util.singleton
 
 /**
- * Taken from https://medium.com/@BladeCoder/kotlin-singletons-with-argument-194ef06edd9e
- * How to credit?
+ * A class that implements singleton-with-argument pattern.
  */
 open class SingletonHolder<T, A>(creator: (A) -> T) {
     private var creator: ((A) -> T)? = creator

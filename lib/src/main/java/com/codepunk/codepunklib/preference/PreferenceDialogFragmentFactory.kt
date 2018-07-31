@@ -20,16 +20,40 @@ import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceDialogFragmentCompat
 import com.codepunk.codepunklib.android.preference.YesNoPreference
 
+/**
+ * A class that handles the creation of [PreferenceDialogFragmentCompat]s.
+ */
 abstract class PreferenceDialogFragmentFactory {
 
+    // region Methods
+
+    /**
+     * Creates a new instance of [PreferenceDialogFragmentCompat] according to the supplied
+     * [Preference].
+     */
     abstract fun create(preference: Preference?): PreferenceDialogFragmentCompat?
 
-    object codepunkFactory : PreferenceDialogFragmentFactory() {
+    // endregion Methods
+
+    // region Nested classes
+
+    /**
+     * [PreferenceDialogFragmentFactory] that creates instances of [PreferenceDialogFragmentCompat]
+     * according to known [Preference] types in the Codepunk Doofenschmirtz library.
+     */
+    object CodepunkFactory : PreferenceDialogFragmentFactory() {
+
+        // region Inherited methods
+
         override fun create(preference: Preference?): PreferenceDialogFragmentCompat? {
             return when (preference) {
                 is YesNoPreference -> YesNoPreferenceDialogFragment.newInstance(preference.key)
                 else -> null
             }
         }
+
+        // endregion Inherited methods
     }
+
+    // endregion Nested classes
 }

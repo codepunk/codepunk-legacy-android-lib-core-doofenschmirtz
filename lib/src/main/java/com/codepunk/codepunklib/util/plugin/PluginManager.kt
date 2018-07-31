@@ -93,50 +93,26 @@ package com.codepunk.codepunklib.util.plugin
  * @param <State> A class representing a state that may or may not change during the
  *                application lifecycle.
  */
-@Suppress("UNUSED")
-abstract class PluginManager<Plugin: Any, State>(
-        _pluginListener: PluginListener<Plugin, State>? = null) {
+abstract class PluginManager<Plugin : Any, State>(
+        var pluginListener: PluginListener<Plugin, State>? = null) {
 
-    //region Nested classes
-
-    /**
-     * Interface that serves as a listener for when plugins are activated (i.e. created) and
-     * deactivated (destroyed).
-     * @param <Plugin> An interface or class that will be managed by this PluginManager.
-     * @param <State> A class representing a state that may or may not change during the
-     *                 application lifecycle.
-     */
-    interface PluginListener<Plugin, State> {
-        fun onActivatePlugin(plugin: Plugin, state: State?)
-        fun onDeactivatePlugin(plugin: Plugin)
-    }
-
-    //endregion Nested classes
-
-    //region Fields
+    // region Properties
 
     /**
      * The currently-active plugin.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
-    lateinit var activePlugin: Plugin
+    protected lateinit var activePlugin: Plugin
         private set
 
     /**
      * The state used to create the currently-active plugin.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
     protected var activeState: State? = null
         private set
 
-    /**
-     * Class that listens for when plugins are activated and deactivated.
-     */
-    private var pluginListener: PluginListener<Plugin, State>? = _pluginListener
+    // endregion Properties
 
-    //endregion Fields
-
-    //region Methods
+    // region Methods
 
     /**
      * Returns a plugin appropriate to the supplied <code>state</code>.
@@ -159,10 +135,6 @@ abstract class PluginManager<Plugin: Any, State>(
         return activePlugin
     }
 
-    //endregion Methods
-
-    //region Protected methods
-
     /**
      * Method that determines whether the active plugin is "stale". That is, based on the supplied
      * <code>state</code>, whether a new plugin needs to be created or not.
@@ -184,7 +156,6 @@ abstract class PluginManager<Plugin: Any, State>(
      * @param plugin The newly-active plugin.
      * @param state The state used to create the plugin.
      */
-    @Suppress("UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
     protected fun onActivatePlugin(plugin: Plugin, state: State) {
         // No action
     }
@@ -193,10 +164,25 @@ abstract class PluginManager<Plugin: Any, State>(
      * Called when a plugin is about to be deactivated (i.e. destroyed).
      * @param plugin The plugin that is about to be deactivated.
      */
-    @Suppress("UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
     protected fun onDeactivatePlugin(plugin: Plugin) {
         // No action
     }
 
-    //endregion Protected methods
+    // endregion Methods
+
+    // region Nested classes
+
+    /**
+     * Interface that serves as a listener for when plugins are activated (i.e. created) and
+     * deactivated (destroyed).
+     * @param <Plugin> An interface or class that will be managed by this PluginManager.
+     * @param <State> A class representing a state that may or may not change during the
+     *                 application lifecycle.
+     */
+    interface PluginListener<Plugin, State> {
+        fun onActivatePlugin(plugin: Plugin, state: State?)
+        fun onDeactivatePlugin(plugin: Plugin)
+    }
+
+    // endregion Nested classes
 }

@@ -20,24 +20,17 @@ import android.os.Bundle
 import android.support.v7.preference.PreferenceDialogFragmentCompat
 import com.codepunk.codepunklib.android.preference.YesNoPreference
 
-class YesNoPreferenceDialogFragment: PreferenceDialogFragmentCompat() {
-
-    // region Properties
-
-    var value: Boolean = false
-
-    // endregion Properties
-
-    // region Lifecycle methods
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        value = savedInstanceState?.getBoolean(SAVE_STATE_VALUE, false) ?: false
-    }
-
-    // endregion Lifecycle methods
+/**
+ * The [PreferenceDialogFragmentCompat] associated with the [YesNoPreference] class. Displays a
+ * simple "Yes/No" dialog.
+ */
+class YesNoPreferenceDialogFragment : PreferenceDialogFragmentCompat() {
 
     // region Inherited methods
 
+    /**
+     * Updates the Boolean value in the [Preference] associated with this dialog fragment.
+     */
     override fun onDialogClosed(positiveResult: Boolean) {
         (preference as? YesNoPreference)?.apply {
             if (callChangeListener(positiveResult)) {
@@ -46,19 +39,17 @@ class YesNoPreferenceDialogFragment: PreferenceDialogFragmentCompat() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(SAVE_STATE_VALUE, value)
-    }
-
     // endregion Inherited methods
 
-    // region Companion objects
+    // region Companion object
 
     companion object {
-        private val SAVE_STATE_VALUE =
-                PreferenceDialogFragmentCompat::class.java.simpleName + ".value"
 
+        // region Methods
+
+        /**
+         * Creates a new [YesNoPreferenceDialogFragment], passing [key] as an argument.
+         */
         fun newInstance(key: String): YesNoPreferenceDialogFragment {
             return YesNoPreferenceDialogFragment().apply {
                 arguments = Bundle().apply {
@@ -66,7 +57,9 @@ class YesNoPreferenceDialogFragment: PreferenceDialogFragmentCompat() {
                 }
             }
         }
+
+        // endregion Methods
     }
 
-    // endregion Companion objects
+    // endregion Companion object
 }

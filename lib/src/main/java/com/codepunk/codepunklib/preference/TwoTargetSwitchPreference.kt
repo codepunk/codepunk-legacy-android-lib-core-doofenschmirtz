@@ -21,9 +21,15 @@ import android.support.v7.preference.PreferenceViewHolder
 import android.support.v7.preference.SwitchPreferenceCompat
 import android.util.AttributeSet
 import android.view.View
+import android.view.View.OnClickListener
 import com.codepunk.codepunklib.R
 
-class TwoTargetSwitchPreference @JvmOverloads constructor (
+/**
+ * A class that offers a two-target implementation of [SwitchPreferenceCompat]. Clicking on the
+ * switch itself will toggle the underlying Boolean value, while clicking the preference itself
+ * will generally lead to a sub-setting fragment or intent.
+ */
+class TwoTargetSwitchPreference @JvmOverloads constructor(
         context: Context? = null,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = R.attr.twoTargetSwitchPreferenceStyle,
@@ -32,6 +38,11 @@ class TwoTargetSwitchPreference @JvmOverloads constructor (
 
     // region Inherited methods
 
+    /**
+     * Binds the created View to the data for this Preference. Additionally, sets an
+     * [OnClickListener] to catch when the user clicks the secondary target.
+     *
+     */
     override fun onBindViewHolder(holder: PreferenceViewHolder?) {
         super.onBindViewHolder(holder)
         val secondaryVisibility = if (widgetLayoutResource == 0) View.GONE else View.VISIBLE
@@ -40,11 +51,15 @@ class TwoTargetSwitchPreference @JvmOverloads constructor (
             visibility = secondaryVisibility
             setOnClickListener {
                 // Call default onClick functionality here rather than from the primary target
-                super@TwoTargetSwitchPreference.onClick()
+                onSecondaryTargetClick()
             }
         }
     }
 
+    /**
+     * Suppresses normal onClick processing for this preference, as the logic to toggle to
+     * underlying value will now be handled in the [onSecondaryTargetClick] method.
+     */
     override fun onClick() {
         // Suppress onClick processing when clicking the primary target. Instead we will handle
         // it when the user clicks the secondary target. Note that this logic is contingent upon
@@ -52,4 +67,16 @@ class TwoTargetSwitchPreference @JvmOverloads constructor (
     }
 
     // endregion Inherited methods
+
+    // region Methods
+
+    /**
+     * The method that is triggered when the user clicks the secondary target. Toggles the
+     * underlying value for this preference.
+     */
+    fun onSecondaryTargetClick() {
+        super.onClick()
+    }
+
+    // endregion Methods
 }

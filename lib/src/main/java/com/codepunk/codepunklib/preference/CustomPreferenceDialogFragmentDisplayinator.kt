@@ -21,6 +21,7 @@ import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceDialogFragmentCompat
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.support.v7.preference.PreferenceFragmentCompat.OnPreferenceDisplayDialogCallback
+import com.codepunk.codepunklib.preference.PreferenceDialogFragmentFactory.CodepunkFactory
 
 /**
  * A copy of Android's private internal DIALOG_FRAGMENT_TAG constant in [PreferenceFragmentCompat].
@@ -116,8 +117,8 @@ fun PreferenceFragmentCompat.displayCustomPreferenceDialogFragment(
         }
     }
 
-    // Always try codepunkFactory as a last resort
-    PreferenceDialogFragmentFactory.codepunkFactory.create(pref)?.also { dialogFragment ->
+    // Always try CodepunkFactory as a last resort
+    CodepunkFactory.create(pref)?.also { dialogFragment ->
         dialogFragment.setTargetFragment(this, 0)
         dialogFragment.show(requireFragmentManager(), dialogFragmentTag)
         return true
