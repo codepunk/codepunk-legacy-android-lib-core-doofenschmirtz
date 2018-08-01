@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.util.plugin
+package com.codepunk.doofenschmirtz.util.plugin
 
 /**
  * Manages and supplies plugins based on supplied criteria. This criteria may or may not change

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.preference
+package com.codepunk.doofenschmirtz.preference
 
 import android.os.Bundle
 import android.support.v7.preference.PreferenceDialogFragmentCompat
-import com.codepunk.codepunklib.android.preference.YesNoPreference
+import com.codepunk.doofenschmirtz.android.preference.YesNoPreference
 
 /**
  * The [PreferenceDialogFragmentCompat] associated with the [YesNoPreference] class. Displays a

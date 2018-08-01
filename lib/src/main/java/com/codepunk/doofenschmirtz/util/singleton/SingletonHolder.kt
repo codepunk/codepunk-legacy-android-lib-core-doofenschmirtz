@@ -19,7 +19,7 @@
  *      https://medium.com/@BladeCoder/kotlin-singletons-with-argument-194ef06edd9e
  */
 
-package com.codepunk.codepunklib.util.singleton
+package com.codepunk.doofenschmirtz.util.singleton
 
 /**
  * A class that implements singleton-with-argument pattern.

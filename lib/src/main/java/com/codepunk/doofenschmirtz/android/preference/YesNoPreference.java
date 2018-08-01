@@ -28,7 +28,7 @@
  *            consistent with support version of Preference framework
  */
 
-package com.codepunk.codepunklib.android.preference;
+package com.codepunk.doofenschmirtz.android.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -39,7 +39,7 @@ import android.os.Parcelable;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
-import com.codepunk.codepunklib.R;
+import com.codepunk.doofenschmirtz.R;
 
 /**
  * The {@link YesNoPreference} is a preference to show a dialog with Yes and No

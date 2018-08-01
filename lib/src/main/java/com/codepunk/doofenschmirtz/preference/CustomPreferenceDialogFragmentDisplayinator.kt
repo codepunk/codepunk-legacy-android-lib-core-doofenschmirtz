@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.preference
+package com.codepunk.doofenschmirtz.preference
 
 import android.app.Activity
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceDialogFragmentCompat
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.support.v7.preference.PreferenceFragmentCompat.OnPreferenceDisplayDialogCallback
-import com.codepunk.codepunklib.preference.PreferenceDialogFragmentFactory.CodepunkFactory
+import com.codepunk.doofenschmirtz.preference.PreferenceDialogFragmentFactory.CodepunkFactory
 
 /**
  * A copy of Android's private internal DIALOG_FRAGMENT_TAG constant in [PreferenceFragmentCompat].

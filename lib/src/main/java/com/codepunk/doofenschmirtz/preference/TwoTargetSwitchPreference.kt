@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.preference
+package com.codepunk.doofenschmirtz.preference
 
 import android.content.Context
 import android.support.v7.preference.PreferenceViewHolder
@@ -22,7 +22,7 @@ import android.support.v7.preference.SwitchPreferenceCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
-import com.codepunk.codepunklib.R
+import com.codepunk.doofenschmirtz.R
 
 /**
  * A class that offers a two-target implementation of [SwitchPreferenceCompat]. Clicking on the

@@ -27,7 +27,7 @@
  *            Updated onBindViewHolder to capture clicks
  */
 
-package com.codepunk.codepunklib.android.preference;
+package com.codepunk.doofenschmirtz.android.preference;
 
 import android.content.Context;
 import android.support.v7.preference.Preference;
@@ -35,7 +35,7 @@ import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.codepunk.codepunklib.R;
+import com.codepunk.doofenschmirtz.R;
 
 public class TwoTargetPreference extends Preference {
 

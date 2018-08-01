@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.util
+package com.codepunk.doofenschmirtz.util
 
 /**
  * An inline function that returns whether an enum contains any values with the given [name].

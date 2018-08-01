@@ -20,7 +20,7 @@
  *      https://github.com/googlesamples/android-architecture/blob/todo-mvvm-live-kotlin/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.kt
  */
 
-package com.codepunk.codepunklib.util
+package com.codepunk.doofenschmirtz.util
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData

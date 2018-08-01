@@ -1,4 +1,4 @@
-package com.codepunk.codepunklib
+package com.codepunk.doofenschmirtz
 
 import org.junit.Test
 

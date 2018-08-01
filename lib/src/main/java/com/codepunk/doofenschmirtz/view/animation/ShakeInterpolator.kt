@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.view.animation
+package com.codepunk.doofenschmirtz.view.animation
 
 import android.animation.TimeInterpolator
 import android.view.animation.CycleInterpolator

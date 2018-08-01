@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.codepunklib.util
+package com.codepunk.doofenschmirtz.util
 
 import android.content.Context
 import android.content.Intent
