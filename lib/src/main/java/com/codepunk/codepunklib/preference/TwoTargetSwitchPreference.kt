@@ -71,8 +71,8 @@ class TwoTargetSwitchPreference @JvmOverloads constructor(
     // region Methods
 
     /**
-     * The method that is triggered when the user clicks the secondary target. Toggles the
-     * underlying value for this preference.
+     * Triggered when the user clicks the secondary target. Toggles the underlying value for this
+     * preference.
      */
     fun onSecondaryTargetClick() {
         super.onClick()
