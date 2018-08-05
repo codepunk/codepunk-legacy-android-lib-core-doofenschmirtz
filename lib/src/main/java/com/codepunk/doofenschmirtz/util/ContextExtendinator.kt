@@ -16,14 +16,28 @@
 
 package com.codepunk.doofenschmirtz.util
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.os.Process
 
 /**
  * A value indicating the default flags for starting the launch activity using the
  * [startLaunchActivity] method.
  */
 const val START_LAUNCH_ACTIVITY_DEFAULT_FLAGS = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+val Context.supportProcessName: String
+    get() {
+        val pid = Process.myPid()
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (process in activityManager.runningAppProcesses) {
+            if (pid == process.pid) {
+                return process.processName
+            }
+        }
+        return ""
+    }
 
 /**
  * Extension method on [Context] that starts the launch activity. Depending on the flags passed,
