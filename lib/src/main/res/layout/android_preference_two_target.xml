@@ -44,9 +44,9 @@
         android:gravity="start|center_vertical"
         android:clipToPadding="false"
         android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+        android:paddingStart="?attr/listPreferredItemPaddingLeft"
         android:paddingRight="?attr/listPreferredItemPaddingRight"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:paddingEnd="?attr/listPreferredItemPaddingRight"
         tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout

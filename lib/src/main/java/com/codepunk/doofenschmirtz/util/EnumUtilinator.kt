@@ -27,10 +27,12 @@ inline fun <reified T : Enum<T>> enumContains(name: String): Boolean {
  * An inline function that extends Kotlin's [enumValueOf] to return a [defaultValue] if an enum
  * with the given [name] is not found.
  */
-inline fun <reified T : Enum<T>> enumValueOf(name: String, defaultValue: T): T {
-    return try {
-        enumValueOf(name)
-    } catch (e: Exception) {
-        defaultValue
-    }
+inline fun <reified T : Enum<T>> enumValueOf(name: String?, defaultValue: T): T {
+    return name?.let {
+        try {
+            enumValueOf<T>(it)
+        } catch (e: Exception) {
+            defaultValue
+        }
+    } ?: defaultValue
 }

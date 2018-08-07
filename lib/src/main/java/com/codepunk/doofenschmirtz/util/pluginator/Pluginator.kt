@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.codepunk.doofenschmirtz.util.plugin
+package com.codepunk.doofenschmirtz.util.pluginator
 
 /**
  * Manages and supplies plugins based on supplied criteria. This criteria may or may not change
  * over the lifecycle of the app; therefore it is good practice to always using the
- * [PluginManager.get] method each time you need to reference a plugin rather than saving the
- * returned value. Upon calling [PluginManager.get], PluginManager will automatically determine
+ * [Pluginator.get] method each time you need to reference a plugin rather than saving the
+ * returned value. Upon calling [Pluginator.get], Pluginator will automatically determine
  * determine if a new plugin needs to be created based on the given criteria.
  *
  * Plugins allow you to avoid multiple `if`/`else` or `switch` (or `when` in Kotlin) statements
@@ -36,7 +36,7 @@ package com.codepunk.doofenschmirtz.util.plugin
  * on Mondays, or show a different message on Friday, and so on. Soon your code would be littered
  * with `if` statements testing the day of the week.
  *
- * You could instead set up a Monday PluginManager:
+ * You could instead set up a Day-of-the-week Pluginator:
  *
  *     interface DayPlugin {
  *         fun showGreeting(context: Context)
@@ -58,7 +58,7 @@ package com.codepunk.doofenschmirtz.util.plugin
  *         }
  *     }
  *
- *     class DayPluginManager: PluginManager<DayPlugin, Calendar>() {
+ *     class DayPluginator: Pluginator<DayPlugin, Calendar>() {
  *         override fun isPluginStale(state: Calendar): Boolean {
  *             return activeState == null || getValue(activeState!!) != getValue(state)
  *         }
@@ -81,14 +81,14 @@ package com.codepunk.doofenschmirtz.util.plugin
  * In the above example, we created a `DayPlugin` interface with a single method, `showGreeting`.
  * In the example mentioned previously, we could have also included a "`setBackgroundColor`" method,
  * and so on. Since the current date/time is constantly changing, we pass that along with each call
- * to [get]. PluginManager in turn calls [isPluginStale] and [newPlugin] as appropriate to
+ * to [get]. Pluginator in turn calls [isPluginStale] and [newPlugin] as appropriate to
  * determine whether the existing plugin (if any) is "stale" and a new one needs to be created.
  *
  * To make use of this new plugin, we can code something like the following in an Activity:
  *
  *     override fun onStart() {
  *         super.onStart()
- *         DayPluginManager().get(Calendar.getInstance()).showGreeting(this)
+ *         DayPluginator().get(Calendar.getInstance()).showGreeting(this)
  *     }
  *
  * This is, of course, a rough example but it shows the power of using PluginManagers. Note that we
@@ -106,7 +106,7 @@ package com.codepunk.doofenschmirtz.util.plugin
  * [isPluginStale] method to determine if a new instance of [Plugin] needs to be created and
  * stored as the [activePlugin].
  */
-abstract class PluginManager<Plugin : Any, State>(
+abstract class Pluginator<Plugin : Any, State>(
         var pluginListener: PluginListener<Plugin, State>? = null) {
 
     // region Properties

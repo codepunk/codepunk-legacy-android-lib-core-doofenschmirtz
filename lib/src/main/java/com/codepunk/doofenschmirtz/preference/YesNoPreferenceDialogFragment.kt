@@ -18,7 +18,7 @@ package com.codepunk.doofenschmirtz.preference
 
 import android.os.Bundle
 import android.support.v7.preference.PreferenceDialogFragmentCompat
-import com.codepunk.doofenschmirtz.android.preference.YesNoPreference
+import com.codepunk.doofenschmirtz.androidinator.preference.YesNoPreference
 
 /**
  * The [PreferenceDialogFragmentCompat] associated with the [YesNoPreference] class. Displays a

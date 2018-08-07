@@ -26,7 +26,7 @@
 <resources>
 
     <style name="android_preference_icon_frame">
-        <item name="android:layout_marginLeft">-4dp</item>
+        <!--<item name="android:layout_marginLeft">-4dp</item>-->
         <item name="android:minWidth">60dp</item>
     </style>
 

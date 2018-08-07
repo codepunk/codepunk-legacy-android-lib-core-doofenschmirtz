@@ -27,7 +27,7 @@
  *            Updated onBindViewHolder to capture clicks
  */
 
-package com.codepunk.doofenschmirtz.android.preference;
+package com.codepunk.doofenschmirtz.androidinator.preference;
 
 import android.content.Context;
 import android.support.v7.preference.Preference;
