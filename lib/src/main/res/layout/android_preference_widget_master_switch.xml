@@ -15,9 +15,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  The original work can be found at The Android Open Source Project
-  (https://github.com/aosp-mirror) in the following locations:
-  Project: platform_packages_apps_settings / file: preference_widget_master_switch.xml
+  The original work can be found at The Android Open Source Project at
+
+      https://github.com/aosp-mirror
+
+  In the following location:
+
+      platform_packages_apps_settings/res/layout/preference_widget_master_switch.xml
 
   Modifications:
   July 2018: Updated to use support versions of widgets.

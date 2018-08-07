@@ -21,7 +21,8 @@
  *      https://github.com/aosp-mirror
  *
  * In the following location:
- * Project: platform_frameworks_base / file: YesNoPreference
+ *
+ *      platform_frameworks_base/core/java/com/android/internal/preference/YesNoPreference.java
  *
  * Modifications:
  * July 2018: Updated to extend support version of DialogPreference

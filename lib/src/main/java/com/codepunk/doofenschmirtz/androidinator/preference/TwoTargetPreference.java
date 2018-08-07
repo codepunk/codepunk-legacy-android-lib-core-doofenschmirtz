@@ -21,7 +21,8 @@
  *      https://github.com/aosp-mirror
  *
  * In the following location:
- * Project: platform_frameworks_base / file: TwoTargetPreference
+ *
+ *      platform_frameworks_base/packages/SettingsLib/src/com/android/settingslib/TwoTargetPreference.java
  *
  * Modifications:
  * July 2018: Updated to use local copies of internal Android resources
