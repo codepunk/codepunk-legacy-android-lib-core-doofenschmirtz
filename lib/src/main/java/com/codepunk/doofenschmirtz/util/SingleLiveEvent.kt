@@ -1,6 +1,7 @@
 /*
  * Copyright 2017 Google Inc.
  * Modifications copyright (C) 2018 Codepunk, LLC
+ *               Author(s): Scott Slater
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +16,13 @@
  * limitations under the License.
  *
  *
- * The original work can be found at The Android Open Source Project at
+ * The original work can be found at The Android Architecture Blueprints Project at
  *
- *      https://github.com/googlesamples/android-architecture/blob/todo-mvvm-live-kotlin/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.kt
+ *      https://github.com/googlesamples/android-architecture
+ *
+ * In the following location:
+ *
+ *      android-architecture/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.kt
  */
 
 package com.codepunk.doofenschmirtz.util

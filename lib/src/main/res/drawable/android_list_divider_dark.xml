@@ -14,8 +14,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  The original work can be found at
-       https://android.googlesource.com/platform/frameworks/base/+/master/packages/SettingsLib/res/drawable/list_divider_dark.xml
+  The original work can be found at The Android Open Source Project at
+
+      https://github.com/aosp-mirror
+
+  In the following location:
+
+      platform_frameworks_base/packages/SettingsLib/res/drawable/list_divider_dark.xml
   -->
 
 <shape

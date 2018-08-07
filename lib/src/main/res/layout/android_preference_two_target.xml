@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright (C) 2017 The Android Open Source Project
-  Modifications copyright (C) 2018 Codepunk, LLC/Scott Slater
+  Modifications copyright (C) 2018 Codepunk, LLC
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -15,12 +15,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  The original work can be found at
+  The original work can be found at The Android Open Source Project at
 
-       https://android.googlesource.com/platform/frameworks/base/+/master/packages/SettingsLib/res/layout/preference_two_target.xml
+      https://github.com/aosp-mirror
+
+  In the following location:
+
+      platform_frameworks_base/packages/SettingsLib/res/layout/preference_two_target.xml
 
   Modifications:
   July 2018: Updated to use local copies of internal Android resources.
+             Author(s): Scott Slater
   -->
 
 <!-- Based off preference_material_settings.xml except that ripple on only on the left side. -->

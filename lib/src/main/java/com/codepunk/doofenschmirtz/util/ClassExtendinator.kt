@@ -1,5 +1,6 @@
 /*
  * Copyright 2018 Codepunk, LLC
+ * Author(s): Scott Slater
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +17,16 @@
 
 package com.codepunk.doofenschmirtz.util
 
+/**
+ * Extension function on [Class] that returns the top-level enclosing class.
+ */
 val Class<*>.topLevelClass: Class<*>
     get() {
         var topLevelClass = this
         while (topLevelClass.enclosingClass != null) {
-            topLevelClass = topLevelClass.enclosingClass
+            topLevelClass.enclosingClass?.apply {
+                topLevelClass = this
+            }
         }
         return topLevelClass
     }
