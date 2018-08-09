@@ -30,7 +30,7 @@
  *            consistent with support version of Preference framework
  */
 
-package com.codepunk.doofenschmirtz.androidinator.preference;
+package com.codepunk.doofenschmirtz.borrowed.android.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;

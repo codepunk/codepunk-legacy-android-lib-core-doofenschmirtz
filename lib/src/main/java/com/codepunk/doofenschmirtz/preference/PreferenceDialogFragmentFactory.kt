@@ -19,7 +19,7 @@ package com.codepunk.doofenschmirtz.preference
 
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceDialogFragmentCompat
-import com.codepunk.doofenschmirtz.androidinator.preference.YesNoPreference
+import com.codepunk.doofenschmirtz.borrowed.android.preference.YesNoPreference
 
 /**
  * A class that handles the creation of [PreferenceDialogFragmentCompat]s.
