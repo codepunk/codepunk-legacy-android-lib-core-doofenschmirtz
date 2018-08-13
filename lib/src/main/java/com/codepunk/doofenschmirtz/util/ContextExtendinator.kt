@@ -45,7 +45,8 @@ val Context.supportProcessName: String
  * this can clear all other activities on the back stack when (re)starting the launch activity.
  */
 fun Context.startLaunchActivity(flags: Int = START_LAUNCH_ACTIVITY_DEFAULT_FLAGS) {
-    val intent = packageManager.getLaunchIntentForPackage(packageName)
-    intent.flags = flags
-    return startActivity(intent)
+    packageManager.getLaunchIntentForPackage(packageName)?.run {
+        this.flags = flags
+        startActivity(this)
+    }
 }

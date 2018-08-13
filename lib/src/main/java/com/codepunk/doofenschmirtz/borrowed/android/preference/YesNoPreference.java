@@ -38,6 +38,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
@@ -97,9 +98,16 @@ public class YesNoPreference extends DialogPreference {
         return a.getBoolean(index, false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         setValue(restorePersistedValue ? getPersistedBoolean(mWasPositiveResult) :
+                (Boolean) defaultValue);
+    }
+
+    @Override
+    protected void onSetInitialValue(@Nullable Object defaultValue) {
+        setValue(defaultValue == null ? getPersistedBoolean(mWasPositiveResult) :
                 (Boolean) defaultValue);
     }
 
