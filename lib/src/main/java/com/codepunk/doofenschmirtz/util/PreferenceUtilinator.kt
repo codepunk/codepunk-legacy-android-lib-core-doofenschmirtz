@@ -26,9 +26,10 @@ import android.support.v7.preference.ListPreference
  * overridden by supplying different logic for [entryValue] and [entry], respectively.
  */
 fun <E : Enum<E>> ListPreference.populate(
-        enumClass: Class<E>,
-        entryValue: (enum: E) -> CharSequence? = { it.name },
-        entry: (enum: E) -> CharSequence? = { it.name }) {
+    enumClass: Class<E>,
+    entryValue: (enum: E) -> CharSequence? = { it.name },
+    entry: (enum: E) -> CharSequence? = { it.name }
+) {
     val entryValueList: ArrayList<CharSequence> = ArrayList(enumClass.enumConstants.size)
     val entryList: ArrayList<CharSequence> = ArrayList(enumClass.enumConstants.size)
     for (constant in enumClass.enumConstants) {

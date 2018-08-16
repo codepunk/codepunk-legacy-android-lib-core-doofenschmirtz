@@ -34,9 +34,9 @@ private const val EMPTY_TAG = ""
  * A [LoginatorWrapper] that automatically formats `tag` and `msg` arguments sent to the
  * [wrappedLoginator] according to the logic passed in [tagFormatter] and [msgFormatter]. By
  * default, any tag supplied via the [d], [i], [e], [v] and [w] methods will be prepended with the
- * simple name of the top-level class in which the method call occurred, or the filename if the 
- * top-level class cannot be determined. Messages will be prepended with information about the 
- * file, class and line number at which the call occurred. This has the added benefit of being 
+ * simple name of the top-level class in which the method call occurred, or the filename if the
+ * top-level class cannot be determined. Messages will be prepended with information about the
+ * file, class and line number at which the call occurred. This has the added benefit of being
  * clickable in Logcat, which will take you directly to that file/class/line.
  *
  * As an example, if the following code is in MainActivity.kt:
@@ -51,13 +51,13 @@ private const val EMPTY_TAG = ""
  * You would see something like this in Logcat:
  *
  *     D/MainActivity: onCreate(MainActivity.kt:47) I'm doing something important!
- * 
+ *
  * If the call at line 47 was changed to
- * 
+ *
  *     47     logger.d("NewFeature", "I'm doing something important!")
- * 
+ *
  * Then you would see something like this in Logcat:
- * 
+ *
  *     D/MainActivity|NewFeature: onCreate(MainActivity.kt:47) I'm doing something important!
  *
  * You can override this default formatting by supplying your own [tagFormatter] and/or
@@ -68,13 +68,13 @@ private const val EMPTY_TAG = ""
  * using the [isLoggable] method before logging your message.
  */
 open class FormattingLoginator(
-        baseLoginator: Loginator = LogcatLoginator(),
-        val tagFormatter: (element: StackTraceElement, tag: String) -> String = { element, tag ->
-            formatTag(element, tag)
-        },
-        val msgFormatter: (element: StackTraceElement, msg: String) -> String = { element, msg ->
-            formatMsg(element, msg)
-        }
+    baseLoginator: Loginator = LogcatLoginator(),
+    val tagFormatter: (element: StackTraceElement, tag: String) -> String = { element, tag ->
+        formatTag(element, tag)
+    },
+    val msgFormatter: (element: StackTraceElement, msg: String) -> String = { element, msg ->
+        formatMsg(element, msg)
+    }
 ) : LoginatorWrapper(baseLoginator) {
 
     // region Inherited methods
@@ -231,7 +231,7 @@ open class FormattingLoginator(
     // endregion Methods
 
     // region Companion object
-    
+
     companion object {
 
         // region Methods
@@ -273,9 +273,9 @@ open class FormattingLoginator(
 
         // endregion Methods
     }
-    
+
     // endregion Companion object
-    
+
     // region Nested classes
 
     /**
@@ -283,6 +283,6 @@ open class FormattingLoginator(
      * were created inside this class.
      */
     protected class LoginatorThrowable : Throwable()
-    
+
     // endregion Nested classes
 }
