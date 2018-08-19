@@ -108,13 +108,15 @@ package com.codepunk.doofenschmirtz.util.pluginator
  * stored as the [activePlugin].
  */
 abstract class Pluginator<Plugin : Any, State>(
-        var pluginListener: PluginListener<Plugin, State>? = null) {
+    private var pluginListener: PluginListener<Plugin, State>? = null
+) {
 
     // region Properties
 
     /**
      * The currently-active plugin.
      */
+    @SuppressWarnings("weakerAccess")
     protected lateinit var activePlugin: Plugin
         private set
 
@@ -162,13 +164,13 @@ abstract class Pluginator<Plugin : Any, State>(
      * Called when a [plugin] is activated (i.e. created), and the [state] that was used to
      * determine that a new instance of [Plugin] was necessary.
      */
-    protected fun onActivatePlugin(plugin: Plugin, state: State) {
+    protected open fun onActivatePlugin(plugin: Plugin, state: State) {
     }
 
     /**
      * Called when a [plugin] is about to be deactivated (i.e. destroyed).
      */
-    protected fun onDeactivatePlugin(plugin: Plugin) {
+    protected open fun onDeactivatePlugin(plugin: Plugin) {
     }
 
     // endregion Methods
