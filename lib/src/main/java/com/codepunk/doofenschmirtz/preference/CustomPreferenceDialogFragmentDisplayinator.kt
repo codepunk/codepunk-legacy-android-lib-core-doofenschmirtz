@@ -19,7 +19,9 @@ package com.codepunk.doofenschmirtz.preference
 
 import android.app.Activity
 import androidx.preference.Preference
+import androidx.preference.PreferenceDialogFragmentCompat
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceFragmentCompat.OnPreferenceDisplayDialogCallback
 import com.codepunk.doofenschmirtz.preference.PreferenceDialogFragmentFactory.CodepunkFactory
 
 /**
@@ -102,7 +104,8 @@ const val DIALOG_FRAGMENT_TAG = "android.support.v7.preference.PreferenceFragmen
 fun PreferenceFragmentCompat.displayCustomPreferenceDialogFragment(
     pref: Preference?,
     dialogFragmentTag: String = DIALOG_FRAGMENT_TAG,
-    vararg factories: PreferenceDialogFragmentFactory): Boolean {
+    vararg factories: PreferenceDialogFragmentFactory
+): Boolean {
     // Check if dialog is already showing
     if (requireFragmentManager().findFragmentByTag(dialogFragmentTag) != null) {
         return true

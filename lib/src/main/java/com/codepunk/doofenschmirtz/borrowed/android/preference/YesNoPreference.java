@@ -52,47 +52,42 @@ import androidx.preference.DialogPreference;
  * This preference will store a boolean into the SharedPreferences.
  */
 public class YesNoPreference extends DialogPreference {
+
+    // region Properties
+
+    /**
+     * Stores whether our last result was a positive one.
+     */
     private boolean mWasPositiveResult;
 
+    // endregion Properties
+
+    // region Constructors
+
+    @SuppressWarnings("WeakerAccess")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public YesNoPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public YesNoPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, R.style.YesNoPreference);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public YesNoPreference(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.yesNoPreferenceStyle);
     }
 
+    @SuppressWarnings("unused")
     public YesNoPreference(Context context) {
         this(context, null);
     }
 
-    /**
-     * Sets the value of this preference, and saves it to the persistent store
-     * if required.
-     *
-     * @param value The value of the preference.
-     */
-    public void setValue(boolean value) {
-        mWasPositiveResult = value;
+    // endregion Constructors
 
-        persistBoolean(value);
-
-        notifyDependencyChange(!value);
-    }
-
-    /**
-     * Gets the value of this preference.
-     *
-     * @return The value of the preference.
-     */
-    public boolean getValue() {
-        return mWasPositiveResult;
-    }
+    // region Inherited methods
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
@@ -143,10 +138,41 @@ public class YesNoPreference extends DialogPreference {
         setValue(myState.wasPositiveResult);
     }
 
+    // endregion Inherited methods
+
+    // region Methods
+
+    /**
+     * Sets the value of this preference, and saves it to the persistent store
+     * if required.
+     *
+     * @param value The value of the preference.
+     */
+    public void setValue(boolean value) {
+        mWasPositiveResult = value;
+
+        persistBoolean(value);
+
+        notifyDependencyChange(!value);
+    }
+
+    /**
+     * Gets the value of this preference.
+     *
+     * @return The value of the preference.
+     */
+    public boolean getValue() {
+        return mWasPositiveResult;
+    }
+
+    // endregion methods
+
+    // region Nested/inner classes
+
     private static class SavedState extends BaseSavedState {
         boolean wasPositiveResult;
 
-        public SavedState(Parcel source) {
+        SavedState(Parcel source) {
             super(source);
             wasPositiveResult = source.readInt() == 1;
         }
@@ -157,7 +183,7 @@ public class YesNoPreference extends DialogPreference {
             dest.writeInt(wasPositiveResult ? 1 : 0);
         }
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 
@@ -172,5 +198,7 @@ public class YesNoPreference extends DialogPreference {
                     }
                 };
     }
+
+    // endregion Nested/inner classes
 
 }

@@ -40,36 +40,43 @@ import com.codepunk.doofenschmirtz.R;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
+/**
+ * A [Preference] class that has two separate targets, for example, a [Preference] that contains
+ * a switch widget but which is itself also clickable.
+ */
+@SuppressWarnings("unused")
 public class TwoTargetPreference extends Preference {
 
+    // region Constructors
+
+    @SuppressWarnings("unused")
     public TwoTargetPreference(Context context, AttributeSet attrs,
             int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
+    @SuppressWarnings("unused")
     public TwoTargetPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    @SuppressWarnings("unused")
     public TwoTargetPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    @SuppressWarnings("unused")
     public TwoTargetPreference(Context context) {
         super(context);
         init();
     }
 
-    private void init() {
-        setLayoutResource(R.layout.android_preference_two_target);
-        final int secondTargetResId = getSecondTargetResId();
-        if (secondTargetResId != 0) {
-            setWidgetLayoutResource(secondTargetResId);
-        }
-    }
+    // endregion Constructors
+
+    // region Inherited methods
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
@@ -85,11 +92,39 @@ public class TwoTargetPreference extends Preference {
         }
     }
 
+    // endregion Inherited methods
+
+    // region Methods
+
+    /**
+     * Initializes the preference.
+     */
+    private void init() {
+        setLayoutResource(R.layout.android_preference_two_target);
+        final int secondTargetResId = getSecondTargetResId();
+        if (secondTargetResId != 0) {
+            setWidgetLayoutResource(secondTargetResId);
+        }
+    }
+
+    /**
+     * Returns whether the second target should be hidden.
+     * @return Whether the second target should be hidden.
+     */
+    @SuppressWarnings("WeakerAccess")
     protected boolean shouldHideSecondTarget() {
         return getSecondTargetResId() == 0;
     }
 
+    /**
+     * Returns the resource id of the second target.
+     * @return The resource id of the second target.
+     */
+    @SuppressWarnings("WeakerAccess")
     protected int getSecondTargetResId() {
         return 0;
     }
+
+    // endregion Methods
+
 }

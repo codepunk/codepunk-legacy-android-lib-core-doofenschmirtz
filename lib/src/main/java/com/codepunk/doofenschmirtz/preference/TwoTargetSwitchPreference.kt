@@ -76,6 +76,7 @@ class TwoTargetSwitchPreference @JvmOverloads constructor(
      * Triggered when the user clicks the secondary target. Toggles the underlying value for this
      * preference.
      */
+    @Suppress("WEAKER_ACCESS")
     fun onSecondaryTargetClick() {
         super.onClick()
     }

@@ -24,10 +24,27 @@ package com.codepunk.doofenschmirtz.util.singleton
 /**
  * A class that implements singleton-with-argument pattern.
  */
+@Suppress("UNUSED")
 open class SingletonHolder<T, A>(creator: (A) -> T) {
-    private var creator: ((A) -> T)? = creator
-    @Volatile private var instance: T? = null
 
+    // region Properties
+
+    /**
+     * The creator method that creates the singleton instance.
+     */
+    private var creator: ((A) -> T)? = creator
+
+    /**
+     * The singleton instance of class [T].
+     */
+    @Volatile
+    private var instance: T? = null
+
+    // endregion Properties
+
+    /**
+     * Gets an instance of class [T] using argument [A].
+     */
     fun getInstance(arg: A): T {
         val i = instance
         if (i != null) {

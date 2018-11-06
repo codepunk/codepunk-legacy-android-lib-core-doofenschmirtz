@@ -66,14 +66,24 @@ private const val EMPTY_TAG = ""
  * StackTraceElements, so it is recommended that you check whether a Loginator is loggable
  * using the [isLoggable] method before logging your message.
  */
+@Suppress("UNUSED")
 open class FormattingLoginator(
 
+    /**
+     * The base loginator being wrapped by this formatting loginator.
+     */
     baseLoginator: Loginator = LogcatLoginator(),
 
+    /**
+     * The formatter to use for log tag values.
+     */
     val tagFormatter: (element: StackTraceElement, tag: String) -> String = { element, tag ->
         formatTag(element, tag)
     },
 
+    /**
+     * The formatted to use for log message values.
+     */
     val msgFormatter: (element: StackTraceElement, msg: String) -> String = { element, msg ->
         formatMsg(element, msg)
     }

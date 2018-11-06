@@ -55,6 +55,9 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     // region Inherited methods
 
+    /**
+     * Observes the [SingleLiveEvent] for changes.
+     */
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
@@ -69,6 +72,9 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         })
     }
 
+    /**
+     * Sets the value of [pending] so live data observes will be triggered.
+     */
     @MainThread
     override fun setValue(value: T?) {
         pending.set(true)

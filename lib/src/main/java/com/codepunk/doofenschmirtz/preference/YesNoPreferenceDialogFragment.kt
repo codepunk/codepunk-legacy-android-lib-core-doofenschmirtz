@@ -18,6 +18,7 @@
 package com.codepunk.doofenschmirtz.preference
 
 import android.os.Bundle
+import androidx.preference.Preference
 import androidx.preference.PreferenceDialogFragmentCompat
 import com.codepunk.doofenschmirtz.borrowed.android.preference.YesNoPreference
 
