@@ -38,11 +38,12 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
 import com.codepunk.doofenschmirtz.R;
+
+import androidx.annotation.Nullable;
+import androidx.preference.DialogPreference;
 
 /**
  * The {@link YesNoPreference} is a preference to show a dialog with Yes and No

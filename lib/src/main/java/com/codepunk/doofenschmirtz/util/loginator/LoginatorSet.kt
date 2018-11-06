@@ -24,6 +24,7 @@ import android.util.Log.*
  * A special [Loginator] that is actually itself a [Set] of Loginators. Operations carried out
  * on this Loginator are propagated down to all Loginators in the set.
  */
+@Suppress("UNUSED")
 class LoginatorSet : HashSet<Loginator>(), Loginator {
 
     // region Properties

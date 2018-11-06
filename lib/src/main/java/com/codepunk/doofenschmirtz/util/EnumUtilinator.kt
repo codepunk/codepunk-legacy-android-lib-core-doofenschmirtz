@@ -20,6 +20,7 @@ package com.codepunk.doofenschmirtz.util
 /**
  * An inline function that returns whether an enum contains any values with the given [name].
  */
+@Suppress("UNUSED")
 inline fun <reified T : Enum<T>> enumContains(name: String): Boolean {
     return enumValues<T>().any { it.name == name }
 }
@@ -28,6 +29,7 @@ inline fun <reified T : Enum<T>> enumContains(name: String): Boolean {
  * An inline function that extends Kotlin's [enumValueOf] to return a [defaultValue] if an enum
  * with the given [name] is not found.
  */
+@Suppress("UNUSED")
 inline fun <reified T : Enum<T>> enumValueOf(name: String?, defaultValue: T): T {
     return name?.let {
         try {

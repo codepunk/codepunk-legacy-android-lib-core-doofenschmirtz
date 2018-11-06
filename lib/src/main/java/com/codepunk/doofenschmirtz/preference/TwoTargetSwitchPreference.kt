@@ -18,11 +18,11 @@
 package com.codepunk.doofenschmirtz.preference
 
 import android.content.Context
-import android.support.v7.preference.PreferenceViewHolder
-import android.support.v7.preference.SwitchPreferenceCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.OnClickListener
+import androidx.preference.PreferenceViewHolder
+import androidx.preference.SwitchPreferenceCompat
 import com.codepunk.doofenschmirtz.R
 
 /**
@@ -31,11 +31,12 @@ import com.codepunk.doofenschmirtz.R
  * will generally lead to a sub-setting fragment or intent.
  */
 class TwoTargetSwitchPreference @JvmOverloads constructor(
-        context: Context? = null,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.twoTargetSwitchPreferenceStyle,
-        defStyleRes: Int = R.style.TwoTargetSwitchPreference) :
-        SwitchPreferenceCompat(context, attrs, defStyleAttr, defStyleRes) {
+    context: Context? = null,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.twoTargetSwitchPreferenceStyle,
+    defStyleRes: Int = R.style.TwoTargetSwitchPreference
+) :
+    SwitchPreferenceCompat(context, attrs, defStyleAttr, defStyleRes) {
 
     // region Inherited methods
 

@@ -17,7 +17,7 @@
 
 package com.codepunk.doofenschmirtz.util
 
-import android.support.v7.preference.ListPreference
+import androidx.preference.ListPreference
 
 /**
  * Extension method for [ListPreference] that automatically populates the list with values
@@ -25,6 +25,7 @@ import android.support.v7.preference.ListPreference
  * [ListPreference.setEntryValues] and [ListPreference.setEntries], but this behavior can be
  * overridden by supplying different logic for [entryValue] and [entry], respectively.
  */
+@Suppress("UNUSED")
 fun <E : Enum<E>> ListPreference.populate(
     enumClass: Class<E>,
     entryValue: (enum: E) -> CharSequence? = { it.name },

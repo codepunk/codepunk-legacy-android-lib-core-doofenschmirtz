@@ -28,6 +28,10 @@ import android.os.Process
  */
 const val START_LAUNCH_ACTIVITY_DEFAULT_FLAGS = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
+/**
+ * Extension method on [Context] that returns the process name.
+ */
+@Suppress("UNUSED")
 val Context.supportProcessName: String
     get() {
         val pid = Process.myPid()

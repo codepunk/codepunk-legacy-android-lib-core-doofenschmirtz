@@ -21,7 +21,14 @@ package com.codepunk.doofenschmirtz.util.loginator
  * Proxying implementation of [Loginator] that simply delegates all of its calls to another
  * Loginator. Can be subclassed to modify behavior without changing the original Loginator.
  */
-open class LoginatorWrapper(protected val wrappedLoginator: Loginator) : Loginator {
+open class LoginatorWrapper(
+
+    /**
+     * The [Loginator] being wrapped by this LoginatorWrapper.
+     */
+    protected val wrappedLoginator: Loginator
+
+) : Loginator {
 
     // region Properties
 

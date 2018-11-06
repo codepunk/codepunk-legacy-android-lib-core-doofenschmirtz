@@ -32,12 +32,13 @@
 package com.codepunk.doofenschmirtz.borrowed.android.preference;
 
 import android.content.Context;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.codepunk.doofenschmirtz.R;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 
 public class TwoTargetPreference extends Preference {
 

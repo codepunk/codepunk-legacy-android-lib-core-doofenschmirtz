@@ -28,7 +28,7 @@
              Author(s): Scott Slater
   -->
 
-<android.support.v7.widget.SwitchCompat
+<androidx.appcompat.widget.SwitchCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@id/switchWidget"
     android:layout_width="match_parent"

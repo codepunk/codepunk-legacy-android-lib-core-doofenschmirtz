@@ -116,7 +116,10 @@ open class LogcatLoginator(override var level: Int = Log.INFO) : BaseLoginator()
     companion object {
         
         // region Methods
-        
+
+        /**
+         * Trims the supplied [tag] to a length of [MAX_TAG_LENGTH].
+         */
         protected fun trimTag(tag: String): String {
             return when {
                 tag.length > MAX_TAG_LENGTH -> tag.substring(0, MAX_TAG_LENGTH)

@@ -107,6 +107,7 @@ package com.codepunk.doofenschmirtz.util.pluginator
  * [isPluginStale] method to determine if a new instance of [Plugin] needs to be created and
  * stored as the [activePlugin].
  */
+@Suppress("UNUSED")
 abstract class Pluginator<Plugin : Any, State>(
     private var pluginListener: PluginListener<Plugin, State>? = null
 ) {
@@ -123,6 +124,7 @@ abstract class Pluginator<Plugin : Any, State>(
     /**
      * The state used to create the currently-active plugin.
      */
+    @Suppress("WEAKER_ACCESS")
     protected var activeState: State? = null
         private set
 

@@ -25,7 +25,6 @@ import com.codepunk.doofenschmirtz.util.topLevelClass
 /**
  * An empty tag.
  */
-
 private const val EMPTY_TAG = ""
 
 // endregion Constants
@@ -68,13 +67,17 @@ private const val EMPTY_TAG = ""
  * using the [isLoggable] method before logging your message.
  */
 open class FormattingLoginator(
+
     baseLoginator: Loginator = LogcatLoginator(),
+
     val tagFormatter: (element: StackTraceElement, tag: String) -> String = { element, tag ->
         formatTag(element, tag)
     },
+
     val msgFormatter: (element: StackTraceElement, msg: String) -> String = { element, msg ->
         formatMsg(element, msg)
     }
+
 ) : LoginatorWrapper(baseLoginator) {
 
     // region Inherited methods
@@ -216,6 +219,7 @@ open class FormattingLoginator(
      * Sends a [VERBOSE] log message using an empty string passed to [tagFormatter] and [msg]
      * formatted via [msgFormatter], and logs the exception [tr] if one was supplied.
      */
+    @Suppress("WEAKER_ACCESS")
     fun v(msg: String, tr: Throwable = LoginatorThrowable()): Int {
         return v(EMPTY_TAG, msg, tr)
     }
@@ -224,6 +228,7 @@ open class FormattingLoginator(
      * Sends a [WARN] log message using an empty string passed to [tagFormatter] and [msg]
      * formatted via [msgFormatter], and logs the exception [tr] if one was supplied.
      */
+    @Suppress("WEAKER_ACCESS")
     fun w(msg: String, tr: Throwable = LoginatorThrowable()): Int {
         return w(EMPTY_TAG, msg, tr)
     }
