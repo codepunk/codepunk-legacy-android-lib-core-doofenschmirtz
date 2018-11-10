@@ -27,6 +27,11 @@ import com.codepunk.doofenschmirtz.util.topLevelClass
  */
 private const val EMPTY_TAG = ""
 
+/**
+ * An empty message.
+ */
+private const val EMPTY_MSG = ""
+
 // endregion Constants
 
 /**
@@ -210,6 +215,14 @@ open class FormattingLoginator(
     }
 
     /**
+     * Sends a [DEBUG] log message using an empty string passed to [tagFormatter] and
+     * [msgFormatter], and logs the exception [tr] if one was supplied.
+     */
+    fun d(tr: Throwable = LoginatorThrowable()): Int {
+        return d(EMPTY_TAG, EMPTY_MSG, tr)
+    }
+
+    /**
      * Sends an [ERROR] log message using an empty string passed to [tagFormatter] and [msg]
      * formatted via [msgFormatter], and logs the exception [tr] if one was supplied.
      */
@@ -218,11 +231,27 @@ open class FormattingLoginator(
     }
 
     /**
+     * Sends an [ERROR] log message using an empty string passed to [tagFormatter] and
+     * [msgFormatter], and logs the exception [tr] if one was supplied.
+     */
+    fun e(tr: Throwable = LoginatorThrowable()): Int {
+        return e(EMPTY_TAG, EMPTY_MSG, tr)
+    }
+
+    /**
      * Sends an [INFO] log message using an empty string passed to [tagFormatter] and [msg]
      * formatted via [msgFormatter], and logs the exception [tr] if one was supplied.
      */
     fun i(msg: String, tr: Throwable = LoginatorThrowable()): Int {
         return i(EMPTY_TAG, msg, tr)
+    }
+
+    /**
+     * Sends an [INFO] log message using an empty string passed to [tagFormatter] and
+     * [msgFormatter], and logs the exception [tr] if one was supplied.
+     */
+    fun i(tr: Throwable = LoginatorThrowable()): Int {
+        return i(EMPTY_TAG, EMPTY_MSG, tr)
     }
 
     /**
@@ -235,12 +264,30 @@ open class FormattingLoginator(
     }
 
     /**
+     * Sends a [VERBOSE] log message using an empty string passed to [tagFormatter] and
+     * [msgFormatter], and logs the exception [tr] if one was supplied.
+     */
+    @Suppress("WEAKER_ACCESS")
+    fun v(tr: Throwable = LoginatorThrowable()): Int {
+        return v(EMPTY_TAG, EMPTY_MSG, tr)
+    }
+
+    /**
      * Sends a [WARN] log message using an empty string passed to [tagFormatter] and [msg]
      * formatted via [msgFormatter], and logs the exception [tr] if one was supplied.
      */
     @Suppress("WEAKER_ACCESS")
     fun w(msg: String, tr: Throwable = LoginatorThrowable()): Int {
         return w(EMPTY_TAG, msg, tr)
+    }
+
+    /**
+     * Sends a [WARN] log message using an empty string passed to [tagFormatter] and
+     * [msgFormatter], and logs the exception [tr] if one was supplied.
+     */
+    @Suppress("WEAKER_ACCESS")
+    fun w(tr: Throwable = LoginatorThrowable()): Int {
+        return w(EMPTY_TAG, EMPTY_MSG, tr)
     }
 
     // endregion Methods

@@ -120,7 +120,7 @@ public class TwoTargetPreference extends Preference {
      * Returns the resource id of the second target.
      * @return The resource id of the second target.
      */
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "SameReturnValue"})
     protected int getSecondTargetResId() {
         return 0;
     }

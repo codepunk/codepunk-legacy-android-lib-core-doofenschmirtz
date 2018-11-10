@@ -5,23 +5,19 @@ apply plugin: 'org.jetbrains.dokka-android'
 
 buildscript {
     addRepos(repositories)
-//    repositories {
-//        jcenter()
-//    }
 
     dependencies {
         classpath deps.dokka.plugin
-//        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokka_version}"
     }
 }
 
 android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
+    compileSdkVersion rootProject.build_versions.target_sdk
+    buildToolsVersion rootProject.build_versions.build_tools
 
     defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        minSdkVersion rootProject.build_versions.min_sdk
+        targetSdkVersion rootProject.build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,24 +35,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.androidx.app_compat
-    implementation deps.androidx.preference
-    implementation deps.androidx.legacy
-    implementation deps.kotlin.stdlib
+    implementation rootProject.deps.androidx.app_compat
+    implementation rootProject.deps.androidx.preference
+    implementation rootProject.deps.androidx.legacy
+    implementation rootProject.deps.kotlin.stdlib
 
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-//    implementation "com.android.support:appcompat-v7:$android_support_version"
-//    implementation "com.android.support:design:$android_support_version"
-//    implementation "com.android.support:preference-v7:$android_support_version"
+    testImplementation rootProject.deps.junit
 
-    testImplementation deps.junit
-
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation deps.espresso.core
-
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation rootProject.deps.atsl.runner
+    androidTestImplementation rootProject.deps.espresso.core
 }
 
 dokka {

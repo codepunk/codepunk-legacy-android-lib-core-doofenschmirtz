@@ -54,6 +54,7 @@
         android:paddingEnd="?attr/listPreferredItemPaddingRight"
         tools:ignore="DisableBaselineAlignment">
 
+        <!--suppress AndroidDomInspection -->
         <LinearLayout
             android:id="@id/icon_frame"
             style="@style/android_preference_icon_frame"

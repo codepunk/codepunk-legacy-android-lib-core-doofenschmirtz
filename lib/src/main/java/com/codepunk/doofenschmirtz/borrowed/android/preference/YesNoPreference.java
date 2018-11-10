@@ -161,6 +161,7 @@ public class YesNoPreference extends DialogPreference {
      *
      * @return The value of the preference.
      */
+    @SuppressWarnings("WeakerAccess")
     public boolean getValue() {
         return mWasPositiveResult;
     }
