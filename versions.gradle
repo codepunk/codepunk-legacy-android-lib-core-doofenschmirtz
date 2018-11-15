@@ -35,12 +35,17 @@
 
 def versions = [:]
 versions.android_gradle_plugin = "3.4.0-alpha02"
+versions.android_material = "1.0.0"
 versions.android_testing_support_library = "1.1.0-alpha4"
 versions.androidx_legacy = "1.0.0"
 versions.android_support = "28.0.0"
 versions.app_compat = "1.0.0-rc01"
 
 ext.deps = [:]
+
+def android = [:]
+android.material = "com.google.android.material:material:${versions.android_material}"
+deps.android = android
 
 def androidx = [:]
 androidx.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
