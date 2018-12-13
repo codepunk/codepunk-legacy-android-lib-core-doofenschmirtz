@@ -78,6 +78,12 @@ class ProgressUpdate<Progress, Result>(
 
 ) : DataUpdate<Progress, Result>() {
 
+    // region Constructors
+
+    constructor(vararg progress: Progress) : this(progress, null)
+
+    // endregion Constructors
+
     // region Inherited methods
 
     override fun equals(other: Any?): Boolean {

@@ -55,7 +55,7 @@ open class AlertDialogFragment :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
         onBuildAlertDialog(builder)
-        (targetFragment as? OnAlertDialogBuildListener)?.onBuildAlertDialog(this, builder)
+        (targetFragment as? OnBuildAlertDialogListener)?.onBuildAlertDialog(this, builder)
         return builder.create()
     }
 
@@ -180,10 +180,10 @@ open class AlertDialogFragment :
     /**
      * An interface that allows the target fragment of this [AlertDialogFragment] to customize
      * the [AlertDialog.Builder] before the dialog is built. If the target fragment implements
-     * [OnAlertDialogBuildListener], then [onBuildAlertDialog] will be called on the target
+     * [OnBuildAlertDialogListener], then [onBuildAlertDialog] will be called on the target
      * fragment before the dialog is built.
      */
-    interface OnAlertDialogBuildListener {
+    interface OnBuildAlertDialogListener {
 
         // region Methods
 
