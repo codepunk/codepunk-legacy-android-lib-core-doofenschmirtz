@@ -56,7 +56,10 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * A [LiveData] that will contain progress, results, or exceptions related to this task.
      */
     @Suppress("WEAKER_ACCESS")
-    val liveData: MutableLiveData<DataUpdate<Progress, Result>> = MutableLiveData()
+    val liveData: MutableLiveData<DataUpdate<Progress, Result>> =
+        MutableLiveData<DataUpdate<Progress, Result>>().apply {
+            value = PendingUpdate(_data)
+        }
 
     // endregion Properties
 
@@ -67,7 +70,7 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * an empty [ProgressUpdate] instance.
      */
     override fun onPreExecute() {
-        liveData.value = PendingUpdate(_data)
+        onProgressUpdate()
     }
 
     /**

@@ -109,6 +109,8 @@ class ProgressUpdate<Progress, Result>(
 
     // endregion Inherited methods
 
+    // TODO Make builder? Use ArrayList and convert to array?
+
 }
 
 /**
