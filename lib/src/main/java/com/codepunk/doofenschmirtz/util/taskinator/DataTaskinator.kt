@@ -103,7 +103,7 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * this task with [params] and returns [liveData] for observation.
      */
     @Suppress("UNUSED")
-    fun fetch(vararg params: Params): LiveData<DataUpdate<Progress, Result>> {
+    fun executeAsLiveData(vararg params: Params): LiveData<DataUpdate<Progress, Result>> {
         execute(*params)
         return liveData
     }
