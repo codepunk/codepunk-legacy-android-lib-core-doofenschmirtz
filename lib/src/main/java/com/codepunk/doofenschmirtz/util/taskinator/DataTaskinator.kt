@@ -56,8 +56,8 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * A [LiveData] that will contain progress, results, or exceptions related to this task.
      */
     @Suppress("WEAKER_ACCESS")
-    val liveData = MutableLiveData<DataUpdate<Progress, Result>>()
-        .apply {
+    val liveData: MutableLiveData<DataUpdate<Progress, Result>> =
+        MutableLiveData<DataUpdate<Progress, Result>>().apply {
             value = PendingUpdate(_data)
         }
 
@@ -103,7 +103,7 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * this task with [params] and returns [liveData] for observation.
      */
     @Suppress("UNUSED")
-    fun fetch(vararg params: Params): LiveData<DataUpdate<Progress, Result>> {
+    fun executeAsLiveData(vararg params: Params): LiveData<DataUpdate<Progress, Result>> {
         execute(*params)
         return liveData
     }

@@ -78,6 +78,12 @@ class ProgressUpdate<Progress, Result>(
 
 ) : DataUpdate<Progress, Result>() {
 
+    // region Constructors
+
+    constructor(vararg progress: Progress) : this(progress, null)
+
+    // endregion Constructors
+
     // region Inherited methods
 
     override fun equals(other: Any?): Boolean {
@@ -102,6 +108,8 @@ class ProgressUpdate<Progress, Result>(
             "(progress=${Arrays.toString(progress)}, data=$data)"
 
     // endregion Inherited methods
+
+    // TODO Make builder? Use ArrayList and convert to array?
 
 }
 

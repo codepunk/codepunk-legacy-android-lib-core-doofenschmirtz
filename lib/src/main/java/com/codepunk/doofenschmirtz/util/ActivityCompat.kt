@@ -168,9 +168,14 @@ object ActivityCompat {
     @TargetApi(JELLY_BEAN)
     private class JellyBeanActivityCompatImpl : ActivityCompatImpl {
 
+        /**
+         * Since we aren't actually hiding the navigation bar (see below), we don't want to set
+         * the SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION flag because some content would be
+         * permanently hidden beneath the navigation bar.
+         */
         private val contentUnderSystemBarsFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN /* or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION */
 
         /**
          * A set of flags to "hide" the system (status and navigation) bars. Although we CAN hide
