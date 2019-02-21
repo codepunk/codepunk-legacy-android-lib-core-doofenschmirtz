@@ -177,6 +177,7 @@ class HttpStatus private constructor(
         /**
          * A [SparseArray] of HTTP status codes for speedy lookup.
          */
+        @JvmStatic
         private val lookupArray = SparseArray<HttpStatus>()
 
         /**

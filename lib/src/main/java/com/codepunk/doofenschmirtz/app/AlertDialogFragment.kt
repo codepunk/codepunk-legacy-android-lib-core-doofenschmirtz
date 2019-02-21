@@ -161,7 +161,7 @@ open class AlertDialogFragment :
         fun show(
             tag: String,
             targetFragment: Fragment,
-            requestCode: Int,
+            requestCode: Int = 0,
             arguments: Bundle? = null
         ): AlertDialogFragment = AlertDialogFragment().apply {
             setTargetFragment(targetFragment, requestCode)
