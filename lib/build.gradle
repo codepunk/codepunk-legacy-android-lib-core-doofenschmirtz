@@ -1,3 +1,5 @@
+import com.android.build.gradle.api.BaseVariant
+
 /*
  * Copyright (C) 2018 Codepunk, LLC
  *
@@ -49,6 +51,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/javadoc"
+        includeNonPublic = true
+    }
+
+    libraryVariants.all { variant ->
+        /*
+         * Generate a set of unique bundle keys that are accessible as BuildConfig constants.
+         */
+        makeKeys(
+                variant,
+                "LISTENER_SOURCE",
+                "REQUEST_CODE"
+        )
+    }
 }
 
 dependencies {
@@ -67,8 +86,10 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:${rootProject.versions.test_runner}"
 }
 
-dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/javadoc"
-    includeNonPublic = true
+static def makeKeys(BaseVariant variant, String... keys) {
+    keys.each { key ->
+        def buildConfigName = "KEY_$key"
+        def buildConfigValue = "\"${variant.applicationId}.$key\""
+        variant.buildConfigField("String", buildConfigName, buildConfigValue)
+    }
 }

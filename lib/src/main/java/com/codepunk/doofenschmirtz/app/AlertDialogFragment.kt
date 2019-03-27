@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Codepunk, LLC
+ * Copyright 2019 Codepunk, LLC
  * Author(s): Scott Slater
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,9 +25,12 @@ import android.content.DialogInterface.BUTTON_NEGATIVE
 import android.content.DialogInterface.BUTTON_NEUTRAL
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.content.DialogInterface.OnClickListener
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.codepunk.doofenschmirtz.BuildConfig
 
 /**
  * A generic [AppCompatDialogFragment] that displays an alert dialog.
@@ -39,13 +42,58 @@ open class AlertDialogFragment :
 
     // region Properties
 
+    private var listenerSource: ListenerSource = ListenerSource.CUSTOM
+
     /**
-     * The result code that will be sent to the target fragment via [Fragment.onActivityResult].
+     * The [OnBuildAlertDialogListener] that will listen for events related to this
+     * AlertDialogFragment.
+     */
+    var listener: OnBuildAlertDialogListener? = null
+
+    /**
+     * The integer request code originally supplied to [show], allowing you to identify who this
+     * result came from.
+     */
+    protected var requestCode: Int = -1
+        private set
+
+    /**
+     * The result code that will be sent to the listener via
+     * [OnBuildAlertDialogListener.onAlertDialogResult].
      */
     @Suppress("WEAKER_ACCESS")
     protected var resultCode: Int = RESULT_CANCELED
 
     // endregion Properties
+
+    // region Lifecycle methods
+
+    /**
+     * Restores the instance state.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        savedInstanceState?.also {
+            listenerSource = it.getSerializable(BuildConfig.KEY_LISTENER_SOURCE) as ListenerSource
+            requestCode = it.getInt(BuildConfig.KEY_REQUEST_CODE, -1)
+        }
+        listener = when (listenerSource) {
+            ListenerSource.ACTIVITY -> activity as? OnBuildAlertDialogListener
+            ListenerSource.TARGET_FRAGMENT -> targetFragment as? OnBuildAlertDialogListener
+            else -> null
+        }
+    }
+
+    /**
+     * Saves the instance state.
+     */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(BuildConfig.KEY_LISTENER_SOURCE, listenerSource)
+        outState.putInt(BuildConfig.KEY_REQUEST_CODE, requestCode)
+    }
+
+    // endregion Lifecycle methods
 
     // region Inherited methods
 
@@ -55,12 +103,12 @@ open class AlertDialogFragment :
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
         onBuildAlertDialog(builder)
-        (targetFragment as? OnBuildAlertDialogListener)?.onBuildAlertDialog(this, builder)
+        listener?.onBuildAlertDialog(requestCode, builder)
         return builder.create()
     }
 
     /**
-     * Sets [resultCode] to [Activity.RESULT_CANCELED] so it can be passed to the target fragment
+     * Sets [resultCode] to [Activity.RESULT_CANCELED] so it can be passed to the listener
      * when the dialog is dismissed.
      */
     override fun onCancel(dialog: DialogInterface?) {
@@ -73,11 +121,11 @@ open class AlertDialogFragment :
      */
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        // Don't notify target fragment if the dialog is not attached. This will catch the
+        // Don't notify listener if the dialog is not attached. This will catch the
         // difference between a dialog dismissing due to configuration change vs. a user action.
         if (isAdded) {
-            targetFragment?.run {
-                onNotifyTargetFragment(this)
+            listener?.also {
+                onNotifyListener(it)
             }
         }
     }
@@ -111,12 +159,12 @@ open class AlertDialogFragment :
     }
 
     /**
-     * Calls [Fragment.onActivityResult] on the supplied [targetFragment] with the appropriate
-     * request code and result code. Descendants of this fragment can include other data in
-     * the call (via the data argument to onActivityResult) if needed.
+     * Calls [OnBuildAlertDialogListener.onAlertDialogResult] on the supplied [listener] with the
+     * appropriate request code and result code. Descendants of this fragment can include other data
+     * in the call (via the data argument to onAlertDialogResult) if needed.
      */
-    open fun onNotifyTargetFragment(targetFragment: Fragment) {
-        targetFragment.onActivityResult(targetRequestCode, resultCode, null)
+    open fun onNotifyListener(listener: OnBuildAlertDialogListener) {
+        listener.onAlertDialogResult(requestCode, resultCode, null)
     }
 
     // endregion Methods
@@ -156,18 +204,49 @@ open class AlertDialogFragment :
         // region Methods
 
         /**
-         * Convenience method to show this [AlertDialogFragment].
+         * Convenience method to show this AlertDialogFragment from an activity.
          */
         fun show(
+            activity: FragmentActivity,
             tag: String,
+            requestCode: Int = -1,
+            arguments: Bundle? = null,
+            listener: OnBuildAlertDialogListener? = activity as? OnBuildAlertDialogListener
+        ): AlertDialogFragment =
+            activity.supportFragmentManager.findFragmentByTag(tag) as? AlertDialogFragment
+                ?: AlertDialogFragment().apply {
+                    listenerSource = when (listener) {
+                        activity -> ListenerSource.ACTIVITY
+                        else -> ListenerSource.CUSTOM
+                    }
+                    this.listener = listener
+                    this.requestCode = requestCode
+                    this.arguments = arguments
+                    show(activity.supportFragmentManager, tag)
+                }
+
+        /**
+         * Convenience method to show this AlertDialogFragment from a fragment.
+         */
+        fun show(
             targetFragment: Fragment,
-            requestCode: Int = 0,
-            arguments: Bundle? = null
-        ): AlertDialogFragment = AlertDialogFragment().apply {
-            setTargetFragment(targetFragment, requestCode)
-            this.arguments = arguments
-            show(targetFragment.requireFragmentManager(), tag)
-        }
+            tag: String,
+            requestCode: Int = -1,
+            arguments: Bundle? = null,
+            listener: OnBuildAlertDialogListener? = targetFragment as? OnBuildAlertDialogListener
+        ): AlertDialogFragment =
+            targetFragment.requireFragmentManager().findFragmentByTag(tag) as? AlertDialogFragment
+                ?: AlertDialogFragment().apply {
+                    listenerSource = when (listener) {
+                        targetFragment -> ListenerSource.TARGET_FRAGMENT
+                        else -> ListenerSource.CUSTOM
+                    }
+                    this.listener = listener
+                    this.requestCode = requestCode
+                    this.arguments = arguments
+                    setTargetFragment(targetFragment, requestCode)
+                    show(targetFragment.requireFragmentManager(), tag)
+                }
 
         // endregion Methods
 
@@ -177,11 +256,16 @@ open class AlertDialogFragment :
 
     // region Nested/inner classes
 
+    private enum class ListenerSource {
+        ACTIVITY,
+        TARGET_FRAGMENT,
+        CUSTOM
+    }
+
     /**
-     * An interface that allows the target fragment of this [AlertDialogFragment] to customize
-     * the [AlertDialog.Builder] before the dialog is built. If the target fragment implements
-     * [OnBuildAlertDialogListener], then [onBuildAlertDialog] will be called on the target
-     * fragment before the dialog is built.
+     * An interface that allows a listener of this [AlertDialogFragment] to customize the
+     * [AlertDialog.Builder] before the dialog is built. [onBuildAlertDialog] will be called on
+     * the listener before the dialog is built.
      */
     interface OnBuildAlertDialogListener {
 
@@ -190,7 +274,13 @@ open class AlertDialogFragment :
         /**
          * Called from [onCreateDialog] before the dialog is built.
          */
-        fun onBuildAlertDialog(fragment: AlertDialogFragment, builder: AlertDialog.Builder)
+        fun onBuildAlertDialog(requestCode: Int, builder: AlertDialog.Builder)
+
+        /**
+         * Called when an AlertDialogFragment you launched exits, giving you the requestCode you
+         * started it with, the resultCode it returned, and any additional data from it.
+         */
+        fun onAlertDialogResult(requestCode: Int, resultCode: Int, data: Intent? = null)
 
         // endregion Methods
     }
