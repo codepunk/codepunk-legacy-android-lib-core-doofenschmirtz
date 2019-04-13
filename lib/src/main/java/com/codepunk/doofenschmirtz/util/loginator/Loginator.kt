@@ -20,6 +20,7 @@ package com.codepunk.doofenschmirtz.util.loginator
 import android.app.ActivityManager
 import android.app.Application
 import android.os.Process
+import android.util.Log
 import android.util.Log.*
 
 /**
@@ -115,4 +116,5 @@ interface Loginator {
     fun w(tag: String, msg: String, tr: Throwable): Int
 
     // endregion Methods
+
 }

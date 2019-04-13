@@ -144,10 +144,10 @@ object ActivityCompat {
             flagWhenHidden: Int = View.SYSTEM_UI_FLAG_LOW_PROFILE
         ) {
             activity.window.decorView.systemUiVisibility =
-                    when (show) {
-                        true -> 0
-                        false -> flagWhenHidden
-                    }
+                when (show) {
+                    true -> 0
+                    false -> flagWhenHidden
+                }
         }
 
         private fun showActionBar(activity: Activity, show: Boolean) {
