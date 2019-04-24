@@ -478,6 +478,7 @@ class HttpStatus private constructor(
          * otherwise it creates a new HttpStatus and attempts to match the category of the
          * given code.
          */
+        @JvmStatic
         fun lookup(code: Int): HttpStatus {
             val predefined = lookupArray[code]
             return when (predefined) {
