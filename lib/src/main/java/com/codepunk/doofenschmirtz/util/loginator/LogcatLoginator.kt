@@ -29,7 +29,7 @@ private const val MAX_TAG_LENGTH = 23
  * A [Loginator] that uses the standard Logcat as its output, and set to be loggable
  * according to the supplied [level].
  */
-open class LogcatLoginator(override var level: Int = Log.INFO) : BaseLoginator() {
+open class LogcatLoginator(override var level: Int = INFO) : BaseLoginator() {
 
     // region Properties
 

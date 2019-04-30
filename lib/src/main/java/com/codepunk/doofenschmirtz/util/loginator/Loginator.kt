@@ -20,8 +20,9 @@ package com.codepunk.doofenschmirtz.util.loginator
 import android.app.ActivityManager
 import android.app.Application
 import android.os.Process
-import android.util.Log
 import android.util.Log.*
+
+// TODO Combine Loginator and BaseLoginator into an abstract class
 
 /**
  * The basic interface for all extended logging operations in the Codepunk
@@ -44,9 +45,7 @@ interface Loginator {
     /**
      * Checks to see whether or not a log is loggable at the specified level.
      */
-    fun isLoggable(level: Int): Boolean {
-        return level >= this.level
-    }
+    fun isLoggable(level: Int): Boolean = level >= this.level
 
     /**
      * Sends a [DEBUG] log message.
