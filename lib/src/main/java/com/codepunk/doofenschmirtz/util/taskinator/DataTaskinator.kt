@@ -115,7 +115,7 @@ abstract class DataTaskinator<Params, Progress, Result>(
      */
     @Suppress("UNUSED")
     fun executeOnExecutorAsLiveData(
-        exec: Executor = AsyncTask.THREAD_POOL_EXECUTOR,
+        exec: Executor = THREAD_POOL_EXECUTOR,
         vararg params: Params
     ): LiveData<DataUpdate<Progress, Result>> {
         executeOnExecutor(exec, *params)
