@@ -149,7 +149,6 @@ abstract class ResultResource<Progress, Result>(
  * A [Resource] representing a finished task (i.e. a task that has finished without being
  * cancelled).
  */
-@SuppressWarnings("EqualsAndHashcode")
 class SuccessResource<Progress, Result>(
 
     /**
