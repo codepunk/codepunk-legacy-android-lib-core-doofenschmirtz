@@ -25,7 +25,30 @@ import java.util.*
  * A sealed class representing the various possible updates from a [DataTaskinator].
  */
 @Suppress("UNUSED")
-sealed class DataUpdate<Progress, Result>
+sealed class DataUpdate<Progress, Result>(
+
+    /**
+     * Optional additional data to send along with the update.
+     */
+    var data: Bundle? = null
+
+) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DataUpdate<*, *>) return false
+
+        if (data != other.data) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return data?.hashCode() ?: 0
+    }
+
+
+}
 
 /**
  * A [DataUpdate] representing a pending task (i.e. a task that has not been executed yet).
@@ -35,12 +58,13 @@ class PendingUpdate<Progress, Result>(
     /**
      * Optional additional data to send along with the update.
      */
-    var data: Bundle? = null
+    data: Bundle? = null
 
-) : DataUpdate<Progress, Result>() {
+) : DataUpdate<Progress, Result>(data) {
 
     // region Inherited methods
 
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -55,8 +79,17 @@ class PendingUpdate<Progress, Result>(
     override fun hashCode(): Int {
         return data?.hashCode() ?: 0
     }
+    */
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PendingUpdate<*, *>) return false
+        if (!super.equals(other)) return false
+        return true
+    }
 
     override fun toString(): String = "${javaClass.simpleName}(data=$data)"
+
 
     // endregion Inherited methods
 }
@@ -74,9 +107,9 @@ class ProgressUpdate<Progress, Result>(
     /**
      * Optional additional data to send along with the update.
      */
-    var data: Bundle? = null
+    data: Bundle? = null
 
-) : DataUpdate<Progress, Result>() {
+) : DataUpdate<Progress, Result>(data) {
 
     // region Constructors
 
@@ -86,6 +119,7 @@ class ProgressUpdate<Progress, Result>(
 
     // region Inherited methods
 
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -103,9 +137,27 @@ class ProgressUpdate<Progress, Result>(
         result = 31 * result + (data?.hashCode() ?: 0)
         return result
     }
+    */
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ProgressUpdate<*, *>) return false
+        if (!super.equals(other)) return false
+
+        if (!progress.contentEquals(other.progress)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + progress.contentHashCode()
+        return result
+    }
 
     override fun toString(): String = javaClass.simpleName +
-            "(progress=${Arrays.toString(progress)}, data=$data)"
+        "(progress=${Arrays.toString(progress)}, data=$data)"
+
 
     // endregion Inherited methods
 
@@ -127,9 +179,9 @@ abstract class ResultUpdate<Progress, Result>(
     /**
      * Optional additional data to send along with the update.
      */
-    var data: Bundle?
+    data: Bundle?
 
-) : DataUpdate<Progress, Result>()
+) : DataUpdate<Progress, Result>(data)
 
 /**
  * A [DataUpdate] representing a finished task (i.e. a task that has finished without being
@@ -151,6 +203,7 @@ class SuccessUpdate<Progress, Result>(
 
     // region Inherited methods
 
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -167,6 +220,14 @@ class SuccessUpdate<Progress, Result>(
         var result1 = result?.hashCode() ?: 0
         result1 = 31 * result1 + (data?.hashCode() ?: 0)
         return result1
+    }
+    */
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SuccessUpdate<*, *>) return false
+        if (!super.equals(other)) return false
+        return true
     }
 
     override fun toString(): String =
@@ -201,6 +262,7 @@ class FailureUpdate<Progress, Result>(
 
     // region Inherited methods
 
+    /*
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -219,6 +281,23 @@ class FailureUpdate<Progress, Result>(
         result1 = 31 * result1 + (e?.hashCode() ?: 0)
         result1 = 31 * result1 + (data?.hashCode() ?: 0)
         return result1
+    }
+    */
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FailureUpdate<*, *>) return false
+        if (!super.equals(other)) return false
+
+        if (e != other.e) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = super.hashCode()
+        result = 31 * result + (e?.hashCode() ?: 0)
+        return result
     }
 
     override fun toString(): String =
