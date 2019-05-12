@@ -47,7 +47,6 @@ sealed class DataUpdate<Progress, Result>(
         return data?.hashCode() ?: 0
     }
 
-
 }
 
 /**
@@ -64,23 +63,6 @@ class PendingUpdate<Progress, Result>(
 
     // region Inherited methods
 
-    /*
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as PendingUpdate<*, *>
-
-        if (data != other.data) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return data?.hashCode() ?: 0
-    }
-    */
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PendingUpdate<*, *>) return false
@@ -88,10 +70,13 @@ class PendingUpdate<Progress, Result>(
         return true
     }
 
+    @Suppress("REDUNDANT_OVERRIDING_METHOD")
+    override fun hashCode(): Int = super.hashCode()
+
     override fun toString(): String = "${javaClass.simpleName}(data=$data)"
 
-
     // endregion Inherited methods
+
 }
 
 /**
@@ -113,31 +98,12 @@ class ProgressUpdate<Progress, Result>(
 
     // region Constructors
 
+    @Suppress("UNUSED")
     constructor(vararg progress: Progress) : this(progress, null)
 
     // endregion Constructors
 
     // region Inherited methods
-
-    /*
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ProgressUpdate<*, *>
-
-        if (!progress.contentEquals(other.progress)) return false
-        if (data != other.data) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = progress.contentHashCode()
-        result = 31 * result + (data?.hashCode() ?: 0)
-        return result
-    }
-    */
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -158,10 +124,7 @@ class ProgressUpdate<Progress, Result>(
     override fun toString(): String = javaClass.simpleName +
         "(progress=${Arrays.toString(progress)}, data=$data)"
 
-
     // endregion Inherited methods
-
-    // TODO Make builder? Use ArrayList and convert to array?
 
 }
 
@@ -187,6 +150,7 @@ abstract class ResultUpdate<Progress, Result>(
  * A [DataUpdate] representing a finished task (i.e. a task that has finished without being
  * cancelled).
  */
+@SuppressWarnings("EqualsAndHashcode")
 class SuccessUpdate<Progress, Result>(
 
     /**
@@ -203,32 +167,15 @@ class SuccessUpdate<Progress, Result>(
 
     // region Inherited methods
 
-    /*
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as SuccessUpdate<*, *>
-
-        if (result != other.result) return false
-        if (data != other.data) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result1 = result?.hashCode() ?: 0
-        result1 = 31 * result1 + (data?.hashCode() ?: 0)
-        return result1
-    }
-    */
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SuccessUpdate<*, *>) return false
         if (!super.equals(other)) return false
         return true
     }
+
+    @Suppress("REDUNDANT_OVERRIDING_METHOD")
+    override fun hashCode(): Int = super.hashCode()
 
     override fun toString(): String =
         "${javaClass.simpleName}(result=$result, data=$data)"
@@ -261,28 +208,6 @@ class FailureUpdate<Progress, Result>(
 ) : ResultUpdate<Progress, Result>(result, data) {
 
     // region Inherited methods
-
-    /*
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as FailureUpdate<*, *>
-
-        if (result != other.result) return false
-        if (e != other.e) return false
-        if (data != other.data) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result1 = result?.hashCode() ?: 0
-        result1 = 31 * result1 + (e?.hashCode() ?: 0)
-        result1 = 31 * result1 + (data?.hashCode() ?: 0)
-        return result1
-    }
-    */
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
