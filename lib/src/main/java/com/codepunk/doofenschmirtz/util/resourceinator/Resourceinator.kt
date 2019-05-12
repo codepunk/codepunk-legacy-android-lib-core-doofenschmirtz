@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.codepunk.doofenschmirtz.util.taskinator
+package com.codepunk.doofenschmirtz.util.resourceinator
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -24,17 +24,17 @@ import androidx.lifecycle.MutableLiveData
 import java.util.concurrent.Executor
 
 /**
- * An implementation of [AsyncTask] that wraps [Progress] and [Result] in a [DataUpdate]
+ * An implementation of [AsyncTask] that wraps [Progress] and [Result] in a [Resource]
  * sealed class and sets it to a [MutableLiveData] instance.
  */
-abstract class DataTaskinator<Params, Progress, Result>(
+abstract class Resourceinator<Params, Progress, Result>(
 
     /**
-     * An optional bundle of data with which to initialize the [DataTaskinator].
+     * An optional bundle of data with which to initialize the [Resourceinator].
      */
     data: Bundle? = null
 
-) : AsyncTask<Params, Progress, ResultUpdate<Progress, Result>>() {
+) : AsyncTask<Params, Progress, ResultResource<Progress, Result>>() {
 
     // region Properties
 
@@ -56,9 +56,9 @@ abstract class DataTaskinator<Params, Progress, Result>(
      * A [LiveData] that will contain progress, results, or exceptions related to this task.
      */
     @Suppress("WEAKER_ACCESS")
-    val liveData: MutableLiveData<DataUpdate<Progress, Result>> =
-        MutableLiveData<DataUpdate<Progress, Result>>().apply {
-            value = PendingUpdate(_data)
+    val liveResource: MutableLiveData<Resource<Progress, Result>> =
+        MutableLiveData<Resource<Progress, Result>>().apply {
+            value = PendingResource(_data)
         }
 
     // endregion Properties
@@ -66,32 +66,32 @@ abstract class DataTaskinator<Params, Progress, Result>(
     // region Inherited methods
 
     /**
-     * Publishes progress without any data. This will initialize the value in [liveData] to
-     * an empty [ProgressUpdate] instance.
+     * Publishes progress without any data. This will initialize the value in [liveResource] to
+     * an empty [ProgressResource] instance.
      */
     override fun onPreExecute() {
         onProgressUpdate()
     }
 
     /**
-     * Updates [liveData] with a [ProgressUpdate] instance describing this task's progress.
+     * Updates [liveResource] with a [ProgressResource] instance describing this task's progress.
      */
     override fun onProgressUpdate(vararg values: Progress?) {
-        liveData.value = ProgressUpdate(values, _data)
+        liveResource.value = ProgressResource(values, _data)
     }
 
     /**
-     * Updates [liveData] with the result from [doInBackground].
+     * Updates [liveResource] with the result from [doInBackground].
      */
-    override fun onPostExecute(result: ResultUpdate<Progress, Result>?) {
-        liveData.value = result
+    override fun onPostExecute(result: ResultResource<Progress, Result>?) {
+        liveResource.value = result
     }
 
     /**
-     * Updates [liveData] with the result from [doInBackground] if the task was cancelled.
+     * Updates [liveResource] with the result from [doInBackground] if the task was cancelled.
      */
-    override fun onCancelled(result: ResultUpdate<Progress, Result>?) {
-        liveData.value = result
+    override fun onCancelled(result: ResultResource<Progress, Result>?) {
+        liveResource.value = result
     }
 
     // endregion Inherited methods
@@ -100,26 +100,26 @@ abstract class DataTaskinator<Params, Progress, Result>(
 
     /**
      * Convenience method for executing this task and getting the results as [LiveData]. Executes
-     * this task with [params] and returns [liveData] for observation.
+     * this task with [params] and returns [liveResource] for observation.
      */
     @Suppress("UNUSED")
-    fun executeAsLiveData(vararg params: Params): LiveData<DataUpdate<Progress, Result>> {
+    fun executeAsLiveData(vararg params: Params): LiveData<Resource<Progress, Result>> {
         execute(*params)
-        return liveData
+        return liveResource
     }
 
     /**
      * Convenience method for executing this task and getting the results as [LiveData]. Executes
-     * this task on the supplied [Executor] [exec] with [params] and returns [liveData] for
+     * this task on the supplied [Executor] [exec] with [params] and returns [liveResource] for
      * observation.
      */
     @Suppress("UNUSED")
     fun executeOnExecutorAsLiveData(
         exec: Executor = THREAD_POOL_EXECUTOR,
         vararg params: Params
-    ): LiveData<DataUpdate<Progress, Result>> {
+    ): LiveData<Resource<Progress, Result>> {
         executeOnExecutor(exec, *params)
-        return liveData
+        return liveResource
     }
 
     // endregion Methods

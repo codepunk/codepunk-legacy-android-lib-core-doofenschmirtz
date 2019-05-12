@@ -15,20 +15,19 @@
  * limitations under the License.
  */
 
-package com.codepunk.doofenschmirtz.util.taskinator
+package com.codepunk.doofenschmirtz.util.resourceinator
 
 import android.os.Bundle
 import java.lang.Exception
 import java.util.*
 
 /**
- * A sealed class representing the various possible updates from a [DataTaskinator].
+ * A sealed class representing the various outputs from a [Resourceinator].
  */
-@Suppress("UNUSED")
-sealed class DataUpdate<Progress, Result>(
+sealed class Resource<Progress, Result>(
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     var data: Bundle? = null
 
@@ -36,7 +35,7 @@ sealed class DataUpdate<Progress, Result>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is DataUpdate<*, *>) return false
+        if (other !is Resource<*, *>) return false
 
         if (data != other.data) return false
 
@@ -50,22 +49,22 @@ sealed class DataUpdate<Progress, Result>(
 }
 
 /**
- * A [DataUpdate] representing a pending task (i.e. a task that has not been executed yet).
+ * A [Resource] representing a pending task (i.e. a task that has not been executed yet).
  */
-class PendingUpdate<Progress, Result>(
+class PendingResource<Progress, Result>(
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     data: Bundle? = null
 
-) : DataUpdate<Progress, Result>(data) {
+) : Resource<Progress, Result>(data) {
 
     // region Inherited methods
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is PendingUpdate<*, *>) return false
+        if (other !is PendingResource<*, *>) return false
         if (!super.equals(other)) return false
         return true
     }
@@ -80,9 +79,9 @@ class PendingUpdate<Progress, Result>(
 }
 
 /**
- * A [DataUpdate] correlating to a task that is currently in progress (i.e. a running task).
+ * A [Resource] correlating to a task that is currently in progress (i.e. a running task).
  */
-class ProgressUpdate<Progress, Result>(
+class ProgressResource<Progress, Result>(
 
     /**
      * The values indicating progress of the task.
@@ -90,11 +89,11 @@ class ProgressUpdate<Progress, Result>(
     val progress: Array<out Progress?>,
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     data: Bundle? = null
 
-) : DataUpdate<Progress, Result>(data) {
+) : Resource<Progress, Result>(data) {
 
     // region Constructors
 
@@ -107,7 +106,7 @@ class ProgressUpdate<Progress, Result>(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is ProgressUpdate<*, *>) return false
+        if (other !is ProgressResource<*, *>) return false
         if (!super.equals(other)) return false
 
         if (!progress.contentEquals(other.progress)) return false
@@ -129,10 +128,10 @@ class ProgressUpdate<Progress, Result>(
 }
 
 /**
- * An abstract class that represents a DataUpdate that contains a result (whether success
+ * An abstract class that represents a Resource that contains a result (whether success
  * or failure).
  */
-abstract class ResultUpdate<Progress, Result>(
+abstract class ResultResource<Progress, Result>(
 
     /**
      * The result of the operation computed by the task.
@@ -140,18 +139,18 @@ abstract class ResultUpdate<Progress, Result>(
     val result: Result?,
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     data: Bundle?
 
-) : DataUpdate<Progress, Result>(data)
+) : Resource<Progress, Result>(data)
 
 /**
- * A [DataUpdate] representing a finished task (i.e. a task that has finished without being
+ * A [Resource] representing a finished task (i.e. a task that has finished without being
  * cancelled).
  */
 @SuppressWarnings("EqualsAndHashcode")
-class SuccessUpdate<Progress, Result>(
+class SuccessResource<Progress, Result>(
 
     /**
      * The result of the operation computed by the task.
@@ -159,17 +158,17 @@ class SuccessUpdate<Progress, Result>(
     result: Result? = null,
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     data: Bundle? = null
 
-) : ResultUpdate<Progress, Result>(result, data) {
+) : ResultResource<Progress, Result>(result, data) {
 
     // region Inherited methods
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is SuccessUpdate<*, *>) return false
+        if (other !is SuccessResource<*, *>) return false
         if (!super.equals(other)) return false
         return true
     }
@@ -185,10 +184,10 @@ class SuccessUpdate<Progress, Result>(
 }
 
 /**
- * A [DataUpdate] representing a failed task (i.e. a task that was cancelled or experienced
+ * A [Resource] representing a failed task (i.e. a task that was cancelled or experienced
  * some other sort of error during execution).
  */
-class FailureUpdate<Progress, Result>(
+class FailureResource<Progress, Result>(
 
     /**
      * The result, if any, computed by the task. Can be null.
@@ -201,17 +200,17 @@ class FailureUpdate<Progress, Result>(
     val e: Exception? = null,
 
     /**
-     * Optional additional data to send along with the update.
+     * Optional additional data to send along with the resource.
      */
     data: Bundle? = null
 
-) : ResultUpdate<Progress, Result>(result, data) {
+) : ResultResource<Progress, Result>(result, data) {
 
     // region Inherited methods
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is FailureUpdate<*, *>) return false
+        if (other !is FailureResource<*, *>) return false
         if (!super.equals(other)) return false
 
         if (e != other.e) return false
