@@ -18,12 +18,10 @@
 
 <resources>
 
-    <string name="connect_exception_message">Unable to connect. Please check your connection and try again.</string>
-
-    <string name="error">Error</string>
-
-    <string name="timeout_exception_message">The connection timed out. Please try again later.</string>
-
-    <string name="unknown_error_message">An unknown error occurred.</string>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="autoHeightRecyclerViewStyle">@style/AutoHeightRecyclerView</item>
+    </style>
 
 </resources>

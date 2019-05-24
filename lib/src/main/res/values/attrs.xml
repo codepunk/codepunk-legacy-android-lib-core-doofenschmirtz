@@ -17,6 +17,7 @@
   -->
 
 <resources>
+
     <!-- These are the standard attributes that make up a complete theme. -->
     <declare-styleable name="Theme">
         <!-- =================== -->
@@ -24,7 +25,16 @@
         <!-- =================== -->
         <eat-comment />
 
+        <!-- Default style for the AutoHeightRecyclerView widget. -->
+        <attr name="autoHeightRecyclerViewStyle" format="reference" />
+
         <!-- Default style for TwoTargetSwitchPreference. -->
         <attr name="twoTargetSwitchPreferenceStyle" format="reference" />
     </declare-styleable>
+
+    <!-- The set of attributes that describe an AutoHeightRecyclerView's theme. -->
+    <declare-styleable name="AutoHeightRecyclerView">
+        <attr name="android:maxHeight" />
+    </declare-styleable>
+
 </resources>

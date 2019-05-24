@@ -201,4 +201,5 @@ class CustomDividerItemDecoration(
     }
 
     // endregion Companion object
+
 }

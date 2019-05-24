@@ -20,6 +20,9 @@
 
     <!-- TODO Move this to "android_styles"? -->
 
+    <style name="AutoHeightRecyclerView" parent="@android:style/Widget">
+    </style>
+
     <!-- TODO Make a separate "material" styles.xml? Etc. etc. etc.? -->
     <style name="TwoTargetSwitchPreference" parent="Preference.SwitchPreferenceCompat">
         <item name="android:layout">@layout/android_preference_two_target</item>

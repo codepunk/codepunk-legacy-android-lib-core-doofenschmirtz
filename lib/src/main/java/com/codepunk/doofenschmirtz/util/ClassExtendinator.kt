@@ -17,6 +17,20 @@
 
 package com.codepunk.doofenschmirtz.util
 
+import kotlin.reflect.KClass
+
+/**
+ * A function that creates a key using a fully-qualified [Class] name coupled with the supplied
+ * [name].
+ */
+fun Class<*>.makeKey(name: String): String = "${this.name}.$name"
+
+/**
+ * A function that creates a key using a fully-qualified [KClass] name coupled with the supplied
+ * [name].
+ */
+fun KClass<*>.makeKey(name: String): String = "${this.java.name}.$name"
+
 /**
  * Extension function on [Class] that returns the top-level enclosing class.
  */
